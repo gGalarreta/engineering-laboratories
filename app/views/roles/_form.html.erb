@@ -1,0 +1,16 @@
+<%= form_for @role, url: path, method: method do |f| %>
+  <%= f.label :Nombre %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :Descripcion %>
+  <%= f.text_field :description %>
+  <br>
+  <%= f.label :Permisos %>
+  <%= link_to_add_association "Agregar permiso", f, :menu_actions, data: {'association-insertion-method': 'append'} %>
+  <%= f.fields_for :menu_actions do |menu_action_fields| %>
+    <%= render 'menu_action_fields', f: menu_action_fields %>
+  <% end %>
+
+  <%= f.submit "Guardar", data: {disable_with: 'Please Wait...'}  %>
+
+<% end %>

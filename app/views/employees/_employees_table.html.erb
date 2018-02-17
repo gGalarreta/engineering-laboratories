@@ -1,0 +1,40 @@
+<div class="material-datatables">
+  <table id="employee-datatable" class="table table-hover sical-data-table" data-placeholder="Buscar Empleados">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Correo</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% employees.each do |employee| %>
+        <tr>
+          <td><%= employee.first_name %></td>
+          <td><%= employee.last_name %></td>
+          <td>Correo</td>
+          <%#= employee.email %>
+          <td>Role</td>
+          <%#= employee.role.name %>
+          <td>
+          <%= link_to employee_path(employee), data: { "toggle" => "tooltip" }, title: "Ver"  do %>
+            ver
+          <% end %>
+          <%= link_to edit_employee_path(employee), data: { "toggle" => "tooltip" }, title: "Editar" do %>
+            editar
+          <% end %>
+          <%#= link_to toggle_status_employee_path(employee), id: "employee-lock-#{employee.id}", class: "btn btn-danger btn-sm #{current_user.can_delete(@controller) ? '' : 'disabled'}", data: { toggle: "tooltip" }, title: "#{employee.tooltip_status}", method: :put, remote: true do %>
+            <%# if employee.status == "active" %>
+              <!--i class="fa fa-unlock" aria-hidden="true"></i>
+            <%# else %>
+              <i class="fa fa-lock" aria-hidden="true"></i!-->
+            <%# end %>
+          <%# end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

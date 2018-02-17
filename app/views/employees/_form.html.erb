@@ -1,0 +1,99 @@
+<%= form_for employee, url: path, method: method do |f| %>
+  <div class="form-group row">
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Nombre %>
+    </div>
+    <div class="col-md-9 input-wrapper">
+      <%= f.text_field :first_name %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Apellido %>
+    </div>
+    <div class="col-md-9 input-wrapper">
+      <%= f.text_field :last_name %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Correo_Electrónico%>
+    </div>
+    <div class="col-md-9 input-wrapper">
+      <%#= f.text_field :email, class: "form-control", email: "true", required: "required" %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Dirección %>
+    </div>
+    <div class="col-md-9 input-wrapper">
+      <%= f.text_field :address %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Teléfono %>
+    </div>
+    <div class="col-md-9 input-wrapper">
+      <%= f.text_field :phone %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Fecha_de_Nacimiento %>
+    </div>
+    <div class="date col-md-9 input-wrapper">
+      <div class="input-group sical-input-group">
+        <%#= f.text_field :date_of_birth, value: employee.date_of_birth ? employee.date_of_birth.strftime("%d/%m/%Y") : "", class: "form-control sical-datepicker", required: "required", date: true, birth: true, onlyAdult: true %>
+        <div class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Sexo %>
+    </div>
+    <div class="col-md-9 input-wrapper">
+      <div class="employee-gender-options">
+        <% User.genders.keys.each do |gender|  %>
+          <%= f.label gender.capitalize do %>
+            <%= f.radio_button :gender, gender %>
+            <span class="icons">
+              <span class="first-icon fa fa-circle-o"></span>
+              <span class="second-icon fa fa-dot-circle-o"></span>
+            </span>
+            <%#= t("activerecord.attributes.employee.gender.#{gender}") %>
+            <%= gender.capitalize %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :laboratorio %>
+    </div>
+    <div class="col-md-9 input-wrapper">
+      <%#= f.collection_select :laboratory_id, @laboratories, :id, :name, { selected: current_user.laboratory ? current_user.laboratory.id : f.object.laboratory_id }, disabled: !current_user.admin? %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :rol %>
+    </div>
+    <div class="col-md-9 input-wrapper">
+      <%#= f.collection_select :role_id, Role.own_per_user(current_user), :id, :name, {} %>
+    </div>
+  </div>  
+  <div class="sical-form-buttons">
+    <div class="text-center">
+      <%= link_to "Cancelar", employees_path, class: "btn btn-primary sical-btn-cancel" %>
+      <%= f.submit "Guardar", class: "btn btn-primary sical-submit-btn", data: {disable_with: 'Please Wait...'}  %>
+    </div>
+  </div>
+<% end %>
+
+

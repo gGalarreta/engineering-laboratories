@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   root "dashboard#home"
 
   resources :roles
+  resources :clients
+  resources :employees
 end

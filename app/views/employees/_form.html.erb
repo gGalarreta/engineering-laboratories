@@ -45,7 +45,7 @@
     </div>
     <div class="date col-md-9 input-wrapper">
       <div class="input-group sical-input-group">
-        <%= f.text_field :date_of_birth, value: employee.date_of_birth ? employee.date_of_birth.strftime("%d/%m/%Y") : "", class: "form-control sical-datepicker", required: "required", date: true, birth: true, onlyAdult: true %>
+        <%#= f.text_field :date_of_birth, value: employee.date_of_birth ? employee.date_of_birth.strftime("%d/%m/%Y") : "", class: "form-control sical-datepicker", required: "required", date: true, birth: true, onlyAdult: true %>
         <div class="input-group-addon">
           <i class="fa fa-calendar"></i>
         </div>
@@ -58,17 +58,17 @@
     </div>
     <div class="col-md-9 input-wrapper">
       <div class="employee-gender-options">
-        <%# User.genders.keys.each do |gender|  %>
-          <%#= f.label gender.capitalize, class: "radio form-check-label sical-radio-button #{employee.gender == gender ? "checked" : ""}" do %>
-            <%#= f.radio_button :gender, gender, class: "form-check-input sical-input-radio-button", required: "required" %>
+        <% User.genders.keys.each do |gender|  %>
+          <%= f.label gender.capitalize do %>
+            <%= f.radio_button :gender, gender %>
             <span class="icons">
               <span class="first-icon fa fa-circle-o"></span>
               <span class="second-icon fa fa-dot-circle-o"></span>
             </span>
             <%#= t("activerecord.attributes.employee.gender.#{gender}") %>
-            <%#= gender.capitalize %>
-          <%# end %>
-        <%# end %>
+            <%= gender.capitalize %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

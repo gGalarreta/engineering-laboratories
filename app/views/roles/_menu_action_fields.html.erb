@@ -1,0 +1,9 @@
+<div class="nested-fields form-group row text-left">
+  <%= f.select :menu_id, options_from_collection_for_select(@menus, 'id', 'navigation_name'), {}%>
+
+  <%= f.check_box :create %>
+  <%= f.check_box :edit %>
+  <%= f.check_box :view %>
+  <%= f.check_box :status %>
+  <%= link_to_remove_association "remove", f %>
+</div>

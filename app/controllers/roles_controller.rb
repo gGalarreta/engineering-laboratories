@@ -1,8 +1,10 @@
 class RolesController < ApplicationController
 
-  before_action :menus, only: [:new, :create]
+  before_action :menus, only: [:new, :create, :edit, :update]
+  before_action :set_role, only: [:edit, :update, :show]
 
   def index
+    @roles = Role.all
   end
 
   def new
@@ -17,7 +19,22 @@ class RolesController < ApplicationController
       #p @role.errors.full_messages
       render :new
     end
+  end
 
+  def edit
+  end
+
+  def update
+    @role.assign_attributes role_params
+    if @role.valid
+      redirect_to roles_path
+    else
+      render :edit
+    end
+  end
+
+  def show
+    
   end
 
   private
@@ -27,10 +44,14 @@ class RolesController < ApplicationController
   end
 
   def role_params
-    params.require(:role).permit(:name, :description, menu_actions_attributes: menu_actions_params)
+    params.require(:role).permit(:id, :name, :description, menu_actions_attributes: menu_actions_params)
   end
 
   def menu_actions_params
-    [:menu_id, :name, :create, :edit, :view, :status, :_destroy]
+    [:id, :menu_id, :name, :create, :edit, :view, :status, :_destroy]
+  end
+
+  def set_role
+    @role = Role.find params[:id]
   end
 end

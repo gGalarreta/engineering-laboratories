@@ -1,5 +1,7 @@
 class Laboratory < ApplicationRecord
 
+  has_many :roles
+
   validates_presence_of :name
 
   VALID_EMAIL_REGEX = /\A([\w+\-]\.?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i

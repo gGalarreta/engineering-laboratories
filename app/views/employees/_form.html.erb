@@ -20,7 +20,7 @@
       <%= f.label :Correo_Electrónico%>
     </div>
     <div class="col-md-9 input-wrapper">
-      <%#= f.text_field :email, class: "form-control", email: "true", required: "required" %>
+      <%= f.text_field :email %>
     </div>
   </div>
   <div class="form-group row">
@@ -72,22 +72,24 @@
       </div>
     </div>
   </div>
-  <div class="form-group row">
-    <div class="col-md-3 col-fom-label">
-      <%= f.label :laboratorio %>
+  <% if current_user.admin? %>
+    <div class="form-group row">
+      <div class="col-md-3 col-fom-label">
+        <%= f.label :laboratorio %>
+      </div>
+      <div class="col-md-9 input-wrapper">
+        <%= f.collection_select :laboratory_id, @laboratories, :id, :name %>
+      </div>
     </div>
-    <div class="col-md-9 input-wrapper">
-      <%#= f.collection_select :laboratory_id, @laboratories, :id, :name, { selected: current_user.laboratory ? current_user.laboratory.id : f.object.laboratory_id }, disabled: !current_user.admin? %>
-    </div>
-  </div>
+  <% end %>  
   <div class="form-group row">
     <div class="col-md-3 col-fom-label">
       <%= f.label :rol %>
     </div>
     <div class="col-md-9 input-wrapper">
-      <%#= f.collection_select :role_id, Role.own_per_user(current_user), :id, :name, {} %>
+      <%= f.collection_select :role_id, @roles, :id, :name %>
     </div>
-  </div>  
+  </div>
   <div class="sical-form-buttons">
     <div class="text-center">
       <%= link_to "Cancelar", employees_path, class: "btn btn-primary sical-btn-cancel" %>

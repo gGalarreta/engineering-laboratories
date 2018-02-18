@@ -18,6 +18,9 @@ gem 'awesome_print', '~> 1.7'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 
+#Devise is a flexible authentication solution for Rails based on Warden
+gem 'devise'
+
 #Cocoon makes it easier to handle nested forms.
 gem "cocoon"
 
@@ -30,7 +33,7 @@ gem 'font-awesome-rails', '~> 4.7.0.2'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
-# See https://github.com/rails/execjs#readme for more supported runtimes
+# selenium https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
@@ -41,6 +44,11 @@ gem 'turbolinks', '~> 5'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
+
+
+# Seedbank allows you to structure your Rails seed data instead of having it all dumped into one large file
+gem "seedbank", '~> 0.3.0'
+
 
 #Jquery, you know the drill
 gem 'jquery-rails', '~> 4.3.1' 

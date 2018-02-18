@@ -26,8 +26,10 @@ class User < ApplicationRecord
     end
   end
 
-  def save current_user
-    self.laboratory = current_user.laboratory if current_user.employee?
+  def self.initialize params, current_user
+    user = User.new params
+    user.laboratory = current_user.laboratory if current_user.employee?
+    user
   end
   private
 

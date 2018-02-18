@@ -13,8 +13,8 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    @employee = User.new employee_params
-    if @employee.save current_user
+    @employee = User.initialize employee_params, current_user
+    if @employee.save 
       redirect_to employees_path
     else
       render :new

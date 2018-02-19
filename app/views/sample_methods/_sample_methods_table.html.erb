@@ -1,0 +1,36 @@
+  <div class="material-datatables">
+  <table id="method-table" class="table table-no-bordered table-hover sical-data-table" data-placeholder="Buscar Métodos">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Costo Unitario</th>
+        <th>Acreditación</th>
+        <th>Laboratorio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% sample_methods.each do |sample_method| %>
+        <tr>
+          <td><%= sample_method.name %></td>
+          <td><%= sample_method.description %></td>
+          <td><%= sample_method.unit_cost %></td>
+          <td><%= t("activerecord.attributes.samplemethod.accreditation.#{sample_method.accreditation}") %></td>
+          <td><%= sample_method.laboratory.name %></td>
+          <td>
+            <%= link_to '<i class="fa fa-eye" aria-hidden="true"></i>'.html_safe, sample_method_path(sample_method), class: "btn btn-info btn-sm ",title: "Ver", method: :get%>
+            <%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>'.html_safe, edit_sample_method_path(sample_method), class: "btn btn-success btn-sm", data: { "toggle" => "tooltip" }, title: "Editar" %>
+            <%#= link_to toggle_status_sample_method_path(sample), id: "sample-method-lock-#{sample.id}", class: "btn btn-danger btn-sm #{current_user.can_delete(@controller) ? '' : 'disabled'}", data: { toggle: "tooltip" }, title: "Activar/Desactivar", method: :put, remote: true do %>
+                  <%# if sample.status == "active" %>
+                    <!--i class="fa fa-unlock" aria-hidden="true"></i>
+                  <%# else %>
+                    <i class="fa fa-lock" aria-hidden="true"></i!-->
+                  <%# end %>
+            <%# end %>
+          </td>
+        </tr>
+      <% end %>
+     </tbody>
+  </table>
+</div>

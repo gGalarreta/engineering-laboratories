@@ -1,6 +1,7 @@
 class Laboratory < ApplicationRecord
 
   has_many :roles
+  has_many :sample_methods
 
   validates_presence_of :name
 

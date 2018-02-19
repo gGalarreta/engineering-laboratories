@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180218004300) do
+ActiveRecord::Schema.define(version: 20180219215511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20180218004300) do
     t.string "address"
     t.string "phone"
     t.string "description"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,10 +50,23 @@ ActiveRecord::Schema.define(version: 20180218004300) do
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "description"
+    t.boolean "active", default: true
     t.bigint "laboratory_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["laboratory_id"], name: "index_roles_on_laboratory_id"
+  end
+
+  create_table "sample_methods", force: :cascade do |t|
+    t.float "unit_cost"
+    t.string "name"
+    t.string "description"
+    t.boolean "active", default: true
+    t.integer "accreditation", default: 0
+    t.bigint "laboratory_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["laboratory_id"], name: "index_sample_methods_on_laboratory_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -5,10 +5,26 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="sical-container">
+      <%= render 'layouts/sidebar' %>
+      <div class="page-content main-panel sical-main-panel">
+        <%= render 'layouts/navbar' %>
+        <div class="content sical-content">
+          <div id="loader" class="sical-loader text-center">
+            <%= image_tag "polygonal-loader2.gif" %>
+          </div>
+          <div id="content" class="hidden">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render 'layouts/footer' %>
   </body>
+    <!-- Js Libraries -->
+  <%= javascript_include_tag 'application' %>
 </html>

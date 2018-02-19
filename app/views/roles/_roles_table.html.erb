@@ -1,4 +1,5 @@
-  <table>
+<div class="material-datatables">
+  <table id="roles-table" class="table table-hover sical-data-table sical-data-table" data-placeholder="Buscar Rol">
     <thead>
       <tr>
         <th>Nombre</th>
@@ -12,12 +13,8 @@
           <td><%= role.name %></td>
           <td><%= role.description %></td>
           <td>
-            <%= link_to role_path(role), data: { "toggle" => "tooltip"}, title: "Ver" do %>
-              ver
-            <% end %>
-            <%= link_to edit_role_path(role), data: { "toggle" => "tooltip" }, title: "Editar" do%>
-            editar
-            <% end %>
+            <%= link_to '<i class="fa fa-eye" aria-hidden="true"></i>'.html_safe, role_path(role), class: "btn btn-info btn-sm", data: { "toggle" => "tooltip"}, title: "Ver" %>
+            <%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>'.html_safe, edit_role_path(role), class: "btn btn-success btn-sm", data: { "toggle" => "tooltip" }, title: "Editar"%>
             <%#= link_to toggle_status_role_path(role), id: "role-lock-#{role.id}", class: "btn btn-danger btn-sm #{current_user.can_delete(@controller) ? '' : 'disabled'}", data: { "toggle" => "tooltip" }, title: "#{role.tooltip_status}", method: :put, remote: true do %>
               <%# if role.status=="active" %>
                 <!--i class="fa fa-unlock" aria-hidden="true"></i>

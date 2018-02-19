@@ -8,4 +8,9 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resources)
     new_user_session_path
   end  
+
+  def navigation
+    @controller = params[:controller]
+    @action = params[:action]
+  end
 end

@@ -1,0 +1,72 @@
+.login-title {
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+.login-content{
+  display: flex;
+  justify-content: center;
+}
+
+.login-logo{
+  margin-right: 80px;
+}
+
+.login-form {
+  width: 40%;
+}
+
+.login-field{
+  padding-bottom: 15px;
+}
+
+.login-img {
+  position:relative;
+  height:299px;
+  width: 291px;
+  margin-top: -45px;
+}
+
+.sical-login {
+  width: 800px;
+  margin: 20px auto;
+  padding-bottom: 40px;
+}
+
+.login-position{
+  margin : 160px;
+}
+
+.container {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100vh;
+}
+
+.device-google {
+  margin: 10px auto 0 auto;
+  width: 246px;
+}
+
+
+.google-sign-in-button {
+  align-items: center;
+  background: #DF4A32;
+  border-radius: 5px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.google-logo {
+  width: 20%;
+  border-right: 1px solid #be3f2b;
+}
+
+.google-title {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 20px;
+  text-align: center;
+}

@@ -49,9 +49,14 @@ gem 'jbuilder', '~> 2.5'
 # Seedbank allows you to structure your Rails seed data instead of having it all dumped into one large file
 gem "seedbank", '~> 0.3.0'
 
-
 #Jquery, you know the drill
 gem 'jquery-rails', '~> 4.3.1' 
+
+#Util library with awesome fonts
+gem 'font-awesome-rails', '~> 4.7.0.2'
+
+#The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web
+gem 'bootstrap', '~> 4.0.0.alpha6'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

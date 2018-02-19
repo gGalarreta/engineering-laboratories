@@ -1,9 +1,14 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+
+  PASSWORD = "pucppass2018"
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  before_save :verify_role
+  before_save :verify_laboratory
 
   belongs_to :role, required: false
   belongs_to :laboratory, required: false
@@ -14,9 +19,6 @@ class User < ApplicationRecord
   def full_name
     first_name + " " +last_name
   end
-
-  before_save :verify_role
-  before_save :verify_laboratory
 
   def self.belongs_work_environment current_user
     if current_user.admin?
@@ -29,8 +31,10 @@ class User < ApplicationRecord
   def self.initialize params, current_user
     user = User.new params
     user.laboratory = current_user.laboratory if current_user.employee?
+    user.password = PASSWORD
     user
   end
+  
   private
 
     def verify_role

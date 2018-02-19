@@ -5,7 +5,7 @@ class RolesController < ApplicationController
   before_action :laboratories, only: [:new, :create, :edit, :update]
 
   def index
-    @roles = Role.all
+    @roles = Role.belongs_work_environment current_user
   end
 
   def new
@@ -13,11 +13,10 @@ class RolesController < ApplicationController
   end
 
   def create
-    @role = Role.new role_params
+    @role = Role.initialize role_params, current_user
     if @role.valid
       redirect_to roles_path
     else
-      #p @role.errors.full_messages
       render :new
     end
   end
@@ -40,23 +39,23 @@ class RolesController < ApplicationController
 
   private
 
-  def menus
-    @menus = Menu.all
-  end
+    def menus
+      @menus = Menu.all
+    end
 
-  def role_params
-    params.require(:role).permit(:id, :name, :description, :laboratory_id, menu_actions_attributes: menu_actions_params)
-  end
+    def role_params
+      params.require(:role).permit(:id, :name, :description, :laboratory_id, menu_actions_attributes: menu_actions_params)
+    end
 
-  def menu_actions_params
-    [:id, :menu_id, :name, :create, :edit, :view, :status, :_destroy]
-  end
+    def menu_actions_params
+      [:id, :menu_id, :name, :create, :edit, :view, :status, :_destroy]
+    end
 
-  def set_role
-    @role = Role.find params[:id]
-  end
+    def set_role
+      @role = Role.find params[:id]
+    end
 
-  def laboratories
-    @laboratories = Laboratory.all
-  end
+    def laboratories
+      @laboratories = Laboratory.all
+    end
 end

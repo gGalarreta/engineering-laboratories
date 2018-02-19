@@ -5,8 +5,10 @@
   <%= f.label :Descripcion %>
   <%= f.text_field :description %>
   <br>
-  <%= f.label :laboratorio %>
-  <%= f.collection_select(:laboratory_id, @laboratories, :id, :name) %>
+  <% if current_user.admin? %>
+    <%= f.label :laboratorio %>
+    <%= f.collection_select(:laboratory_id, @laboratories, :id, :name) %>
+  <% end %>
   <br>
   <%= f.label :Permisos %>
   <%= link_to_add_association "Agregar permiso", f, :menu_actions, data: {'association-insertion-method': 'append'} %>

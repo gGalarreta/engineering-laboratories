@@ -9,11 +9,15 @@ class Role < ApplicationRecord
 
   validates_presence_of :name
 
-  before_save :verify_laboratory
-
   def menu_uniqueness
     menus = self.menu_actions.to_a.map(&:menu_id)
     menus.length == menus.uniq.length
+  end
+
+  def self.initialize params, current_user
+    role = Role.new params
+    role.laboratory = current_user.laboratory if current_user.employee?
+    role
   end
 
   def valid
@@ -33,14 +37,5 @@ class Role < ApplicationRecord
     end
       
   end
-
-  private
-
-    def verify_laboratory
-      #dependiendo el current user
-      #se debe setear el laboratorio por default
-      #ocultar en el form el laboraotrio
-      #cuando sea admin
-    end
 
 end

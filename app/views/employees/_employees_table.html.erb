@@ -14,10 +14,8 @@
         <tr>
           <td><%= employee.first_name %></td>
           <td><%= employee.last_name %></td>
-          <td>Correo</td>
-          <%#= employee.email %>
-          <td>Role</td>
-          <%#= employee.role.name %>
+          <td><%= employee.email %></td>
+          <td><%= employee.role.name %></td>
           <td>
           <%= link_to employee_path(employee), data: { "toggle" => "tooltip" }, title: "Ver"  do %>
             ver

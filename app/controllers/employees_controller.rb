@@ -1,8 +1,8 @@
 class EmployeesController < ApplicationController
 
   before_action :set_employee, only: [:edit, :update, :show]
-  before_action :laboratories, only: [:new, :create]
-  before_action :roles, only: [:new, :create]
+  before_action :laboratories, only: [:new, :create, :edit, :update]
+  before_action :roles, only: [:new, :create, :edit, :update]
 
   def index
     @employees = User.belongs_work_environment current_user
@@ -39,7 +39,7 @@ class EmployeesController < ApplicationController
   private
 
   def employee_params
-    params.require(:user).permit(:id, :first_name, :last_name, :address, :phone, :date_of_birth, :gender, :laboratory_id, :role_id).merge(category: User.categories["employee"])
+    params.require(:user).permit(:id, :first_name, :last_name, :address, :phone, :date_of_birth, :gender, :laboratory_id, :role_id, :email).merge(category: User.categories["employee"])
   end
 
   def set_employee

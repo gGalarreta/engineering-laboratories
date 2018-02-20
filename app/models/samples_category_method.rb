@@ -1,0 +1,4 @@
+class SamplesCategoryMethod < ApplicationRecord
+
+  
+end

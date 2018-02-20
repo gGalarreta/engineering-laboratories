@@ -1,11 +1,12 @@
 class SampleMethod < ApplicationRecord
   include ApplicationHelper
 
-  validates :name, presence: true
+  belongs_to :laboratory
   
+  validates :name, presence: true
   validates :unit_cost, numericality: { :greater_than_or_equal_to => 0 }
   
-  belongs_to :laboratory
+  scope :only_actives, -> {where(active: true)}
   
   enum accreditation: [:accredited, :non_accredited]
   

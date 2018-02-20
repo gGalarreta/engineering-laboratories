@@ -62,6 +62,6 @@ class RolesController < ApplicationController
     end
 
     def laboratories
-      @laboratories = Laboratory.all
+      @laboratories = Laboratory.only_actives
     end
 end

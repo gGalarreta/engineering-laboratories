@@ -4,11 +4,11 @@ class Role < ApplicationRecord
   has_many :menu_actions, dependent: :destroy
   has_many :menus, through: :menu_actions
   accepts_nested_attributes_for :menu_actions, reject_if: :all_blank, allow_destroy: true
-
   belongs_to :laboratory, required: false
   
-
   validates_presence_of :name
+  
+  scope :only_actives, -> {where(active: true)}
 
   def menu_uniqueness
     menus = self.menu_actions.to_a.map(&:menu_id)

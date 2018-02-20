@@ -6,18 +6,22 @@ class User < ApplicationRecord
 
   PASSWORD = "pucppass2018"
 
+  belongs_to :role, required: false
+  belongs_to :laboratory, required: false
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   before_save :verify_role
   before_save :verify_laboratory
 
-  belongs_to :role, required: false
-  belongs_to :laboratory, required: false
+  scope :only_clients_actives, -> {client.where(active: true)}
+  scope :only_employees_actives, -> {employee.where(active: true)}
   
   enum category: [:admin, :employee, :client]
   enum gender: [:male, :female]
-  
+
+
   def full_name
     first_name + " " +last_name
   end

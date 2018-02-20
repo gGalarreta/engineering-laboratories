@@ -47,7 +47,7 @@ class SampleMethodsController < ApplicationController
     end
 
     def laboratories
-      @laboratories = Laboratory.all
+      @laboratories = Laboratory.only_actives
     end
 
     def set_sample_method

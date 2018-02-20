@@ -1,0 +1,7 @@
+(function() {
+  $(function() {
+    var $currentLock = $('#laboratory-lock-<%= @laboratory.id %>');
+    var status = "<%= @laboratory.active %>";
+    toggleLockStatus($currentLock, status);
+  });
+})();

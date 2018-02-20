@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
 
-  before_action :set_employee, only: [:edit, :update, :show]
+  before_action :set_employee, only: [:edit, :update, :show, :toggle_status]
   before_action :laboratories, only: [:new, :create, :edit, :update]
   before_action :roles, only: [:new, :create, :edit, :update]
 
@@ -35,6 +35,13 @@ class EmployeesController < ApplicationController
   def show
   end
 
+  def toggle_status
+    @employee.change_status
+    respond_to do |format|
+      format.js
+    end
+  end   
+
 
   private
 
@@ -47,7 +54,7 @@ class EmployeesController < ApplicationController
   end
 
   def laboratories
-    @laboratories = Laboratory.all
+    @laboratories = Laboratory.only_actives
   end
 
   def roles

@@ -1,6 +1,6 @@
 class LaboratoriesController < ApplicationController
 
-  before_action :set_laboratory, only: [:edit, :update, :show]
+  before_action :set_laboratory, only: [:edit, :update, :show, :toggle_status]
 
   def index
     @laboratories = Laboratory.all
@@ -32,6 +32,13 @@ class LaboratoriesController < ApplicationController
 
   def show
   end
+
+  def toggle_status
+    @laboratory.change_status
+    respond_to do |format|
+      format.js
+    end
+  end  
 
   private
 

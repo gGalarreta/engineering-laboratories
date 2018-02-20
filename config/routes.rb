@@ -15,10 +15,20 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :roles
-  resources :clients
-  resources :employees
-  resources :laboratories
-  resources :sample_methods
+  resources :roles do
+    put "toggle_status", on: :member
+  end
+  resources :clients do 
+    put "toggle_status", on: :member
+  end
+  resources :employees do
+    put "toggle_status", on: :member
+  end
+  resources :laboratories do 
+    put "toggle_status", on: :member
+  end
+  resources :sample_methods do 
+    put "toggle_status", on: :member
+  end
 
 end

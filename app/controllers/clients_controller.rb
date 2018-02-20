@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
 
-  before_action :set_client, only: [:edit, :update, :show]
+  before_action :set_client, only: [:edit, :update, :show, :toggle_status]
 
   def index
     @clients = User.client
@@ -32,6 +32,13 @@ class ClientsController < ApplicationController
 
   def show
   end
+
+  def toggle_status
+    @client.change_status
+    respond_to do |format|
+      format.js
+    end
+  end   
 
   private
 

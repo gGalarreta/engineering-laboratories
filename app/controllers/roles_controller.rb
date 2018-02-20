@@ -1,7 +1,7 @@
 class RolesController < ApplicationController
 
+  before_action :set_role, only: [:edit, :update, :show, :toggle_status]
   before_action :menus, only: [:new, :create, :edit, :update]
-  before_action :set_role, only: [:edit, :update, :show]
   before_action :laboratories, only: [:new, :create, :edit, :update]
 
   def index
@@ -34,8 +34,14 @@ class RolesController < ApplicationController
   end
 
   def show
-    
   end
+
+  def toggle_status
+    @role.change_status
+    respond_to do |format|
+      format.js
+    end
+  end   
 
   private
 
@@ -56,6 +62,6 @@ class RolesController < ApplicationController
     end
 
     def laboratories
-      @laboratories = Laboratory.all
+      @laboratories = Laboratory.only_actives
     end
 end

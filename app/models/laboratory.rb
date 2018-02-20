@@ -1,5 +1,7 @@
 class Laboratory < ApplicationRecord
 
+  include ApplicationHelper
+
   has_many :roles
   has_many :sample_methods
 
@@ -10,6 +12,6 @@ class Laboratory < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX},
                     uniqueness: true
 
-                    
+
 
 end

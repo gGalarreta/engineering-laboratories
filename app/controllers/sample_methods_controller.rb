@@ -1,7 +1,7 @@
 class SampleMethodsController < ApplicationController
 
   before_action :laboratories, only: [:new, :create, :edit, :update]
-  before_action :set_sample_method, only: [:show, :edit, :update]
+  before_action :set_sample_method, only: [:show, :edit, :update, :toggle_status]
 
   def index
     @sample_methods = SampleMethod.all
@@ -33,6 +33,13 @@ class SampleMethodsController < ApplicationController
 
   def show
   end
+
+  def toggle_status
+    @sample_method.change_status
+    respond_to do |format|
+      format.js
+    end
+  end     
 
   private
     def sample_method_params

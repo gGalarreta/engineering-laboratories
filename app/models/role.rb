@@ -1,4 +1,5 @@
 class Role < ApplicationRecord
+  include ApplicationHelper
 
   has_many :menu_actions, dependent: :destroy
   has_many :menus, through: :menu_actions

@@ -1,4 +1,5 @@
 class SampleMethod < ApplicationRecord
+  include ApplicationHelper
 
   validates :name, presence: true
   

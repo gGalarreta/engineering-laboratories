@@ -4,6 +4,8 @@ class SampleCategoriesController < ApplicationController
 
   before_action :laboratories, only: [:new, :create, :edit, :update]
 
+  before_action :sample_methods, only: [:new, :create, :edit, :update]
+
   def index
     @sample_categories = SampleCategory.belongs_work_environment current_user
   end
@@ -35,6 +37,10 @@ class SampleCategoriesController < ApplicationController
 
     def set_sample_category
       @sample_category = SampleCategory.find params[:id]
+    end
+
+    def sample_methods
+      @sample_methods = SampleMethod.only_actives
     end
 
     def laboratories

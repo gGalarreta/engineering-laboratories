@@ -34,7 +34,7 @@ class InventoriesController < ApplicationController
       redirect_to inventories_path
     else
       Audit.register current_user, @action, @controller, register_status = false
-      render :new
+      render :edit
     end
   end
 
@@ -42,9 +42,6 @@ class InventoriesController < ApplicationController
     @inventory.destroy
     if @inventory.destroy
       Audit.register current_user, @action, @controller, register_status = true
-      redirect_to inventories_path
-    else
-      Audit.register current_user, @action, @controller, register_status = false
       redirect_to inventories_path
     end
   end

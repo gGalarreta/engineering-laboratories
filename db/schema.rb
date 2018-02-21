@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221010902) do
+ActiveRecord::Schema.define(version: 20180221203840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,21 @@ ActiveRecord::Schema.define(version: 20180221010902) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["samples_category_method_id"], name: "index_features_on_samples_category_method_id"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.text "description"
+    t.date "date_of_entry"
+    t.integer "amount"
+    t.string "code"
+    t.string "name"
+    t.string "brand"
+    t.string "product_model"
+    t.integer "status"
+    t.bigint "laboratory_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["laboratory_id"], name: "index_inventories_on_laboratory_id"
   end
 
   create_table "laboratories", force: :cascade do |t|
@@ -106,6 +121,18 @@ ActiveRecord::Schema.define(version: 20180221010902) do
     t.datetime "updated_at", null: false
     t.index ["sample_category_id"], name: "index_samples_category_methods_on_sample_category_id"
     t.index ["sample_method_id"], name: "index_samples_category_methods_on_sample_method_id"
+  end
+
+  create_table "supplies", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+    t.float "quantity"
+    t.string "measureUnit"
+    t.bigint "laboratory_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["laboratory_id"], name: "index_supplies_on_laboratory_id"
   end
 
   create_table "users", force: :cascade do |t|

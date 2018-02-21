@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  name_: MyString
+  description: MyString
+  quantity: 1.5
+  measureUnit: MyString
+  laboratories: one
+
+two:
+  code: MyString
+  name_: MyString
+  description: MyString
+  quantity: 1.5
+  measureUnit: MyString
+  laboratories: two

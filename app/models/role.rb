@@ -10,7 +10,7 @@ class Role < ApplicationRecord
   
   scope :only_actives, -> {where(active: true)}
 
-  def menu_uniqueness
+  def unique_menus
     menus = self.menu_actions.to_a.map(&:menu_id)
     menus.length == menus.uniq.length
   end
@@ -22,9 +22,10 @@ class Role < ApplicationRecord
   end
 
   def valid
-    unless menu_uniqueness
-      self.errors.add(:menus, message: "no se puede guardar un mismo")
-      raise ActiveRecord::Rollback
+    unless unique_menus
+      self.errors.add(:menus, message: "No se puede guardar un mismo menu")
+      #raise ActiveRecord::Rollback
+      false
     else
       self.save
     end

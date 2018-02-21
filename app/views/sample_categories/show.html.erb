@@ -1,1 +1,43 @@
-show.html.erb
+<div class="card">
+  <div class="content">
+    <div class="header card-header-text sical-card-header">
+      <h1 class="page-header title sical-card-title">Categoria de Muestra <small>Ver</small></h1>
+    </div>
+    <div class="form-horizontal validate sical-form sical-form-validated">
+      <div class="form-group row">
+        <label class="col-md-3 col-fom-label">Nombre :</label>
+        <div class="col-md-9">
+          <%= @sample_category.name %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3">Descripción :</label>
+        <div class="col-md-9">
+          <%= @sample_category.description %>
+        </div>
+      </div>
+      <% @sample_category.samples_category_methods.each do |sample_category_method| %>
+        <h4><%= sample_category_method.sample_method.name %></h4>
+        <table class="table table-no-bordered table-hover">
+          <thead>
+            <th>Concepto</th>
+            <th>Valor Mínimo</th>
+            <th>Valor Máximo</th>            
+          </thead>
+          <% sample_category_method.features.each do |feature|%>
+            <tr>
+              <td><%= feature.description %></td>
+              <td><%= feature.minimun_value %></td>
+              <td><%= feature.maximum_value %></td>
+            </tr>
+          <% end %>          
+        </table>
+      <% end %>
+      <div class="form-group">
+        <div class="text-center">
+          <%= link_to "Volver", sample_categories_path, class: "btn btn-primary sical-btn-cancel" %>          
+        </div>
+      </div>      
+    </div>    
+  </div>
+</div>

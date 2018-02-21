@@ -22,6 +22,7 @@
     </div>    
   <% end %>
   <%= render 'aplication/add_nested_elements', title: "Métodos Asociados", button_message: "Agregar métodos", editable: true, f: f, 'association_insert_node': '.samples-information', fields: :samples_category_methods, partial: 'samples_category_method_fields' %>
+  
   <div class="form-group">
     <div class="text-center">
       <%= link_to "Cancelar", sample_categories_path, class: "btn btn-primary sical-btn-cancel" %>

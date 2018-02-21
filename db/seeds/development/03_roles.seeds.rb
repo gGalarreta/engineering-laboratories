@@ -5,6 +5,7 @@ role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Clientes"), creat
 role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Metodos de Ensayo"), create: true, edit: true, view: true, status: true)
 role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Parametros del sistema"), create: true, edit: true, view: true, status: true)
 role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Auditoria"), create: true, edit: true, view: true, status: true)
+role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Laboratorios"), create: true, edit: true, view: true, status: true)
 
 role = Role.create!(name: "cliente", description: "Controla lo que debe ver el cliente")
 role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Laboratorios"), create: true, edit: true, view: true, status: true)

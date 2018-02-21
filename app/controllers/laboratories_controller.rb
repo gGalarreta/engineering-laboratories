@@ -3,6 +3,8 @@ class LaboratoriesController < ApplicationController
   before_action :set_laboratory, only: [:edit, :update, :show, :toggle_status]
 
   def index
+    p @action
+    p @controller
     @laboratories = Laboratory.all
   end
 
@@ -13,8 +15,10 @@ class LaboratoriesController < ApplicationController
   def create
     @laboratory = Laboratory.new laboratory_params
     if @laboratory.save
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to laboratories_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :new
     end
   end
@@ -24,8 +28,10 @@ class LaboratoriesController < ApplicationController
 
   def update
     if @laboratory.update_attributes laboratory_params
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to laboratories_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :edit
     end
   end
@@ -35,6 +41,7 @@ class LaboratoriesController < ApplicationController
 
   def toggle_status
     @laboratory.change_status
+    Audit.register current_user, @action, @controller, register_status = true
     respond_to do |format|
       format.js
     end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   devise_for :users
@@ -32,6 +33,10 @@ Rails.application.routes.draw do
   end
 
   resources :sample_categories do
+    put "toggle_status", on: :member
+  end
+
+    resources :system_parameters do
     put "toggle_status", on: :member
   end
 

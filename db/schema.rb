@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221010902) do
+ActiveRecord::Schema.define(version: 20180222230157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,15 @@ ActiveRecord::Schema.define(version: 20180221010902) do
     t.datetime "updated_at", null: false
     t.index ["sample_category_id"], name: "index_samples_category_methods_on_sample_category_id"
     t.index ["sample_method_id"], name: "index_samples_category_methods_on_sample_method_id"
+  end
+
+  create_table "system_parameters", force: :cascade do |t|
+    t.integer "feature"
+    t.text "description"
+    t.bigint "laboratory_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["laboratory_id"], name: "index_system_parameters_on_laboratory_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -36,11 +36,9 @@ Rails.application.routes.draw do
     put "toggle_status", on: :member
   end
 
-  resources :inventories do
-  end
+  resources :inventories
 
-  resources :supplies do
-  end  
+  resources :supplies
 
   resources :audits, only: [:index]
 end

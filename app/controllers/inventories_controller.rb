@@ -43,14 +43,9 @@ class InventoriesController < ApplicationController
     if @inventory.destroy
       Audit.register current_user, @action, @controller, register_status = true
       redirect_to inventories_path
-    end
-  end
-
-  def toggle_status
-    @inventory.change_status
-    Audit.register current_user, @action, @controller, register_status = true
-    respond_to do |format|
-      format.js
+    else
+      Audit.register current_user, @action, @controller, register_status = false
+      redirect_to inventories_path
     end
   end
 

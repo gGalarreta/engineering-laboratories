@@ -5,7 +5,7 @@ class CreateSupplies < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :description
       t.float :quantity
-      t.string :measureUnit
+      t.string :measure_unit
       t.belongs_to :laboratory
 
       t.timestamps

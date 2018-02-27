@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 20180221203840) do
     t.string "name"
     t.string "description"
     t.float "quantity"
-    t.string "measureUnit"
+    t.string "measure_unit"
     t.bigint "laboratory_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

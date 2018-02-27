@@ -36,8 +36,7 @@ Rails.application.routes.draw do
     put "toggle_status", on: :member
   end
 
-    resources :system_parameters do
-    put "toggle_status", on: :member
+  resources :system_parameters do
   end
 
   resources :audits, only: [:index]

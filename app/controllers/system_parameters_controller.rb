@@ -1,15 +1,10 @@
 class SystemParametersController < ApplicationController
 
   before_action :set_system_parameter, only: [:edit, :update, :show]
-  before_action :laboratories, only: [:edit, :update, :show]
 
   def index
     @system_parameters = SystemParameter.belongs_work_environment current_user
-    if current_user.admin? then
-      @laboratories = Laboratory.only_actives
-    else
-      @laboratories = Laboratory.where(laboratory_id: current_user.laboratory)
-    end
+    @laboratories = Laboratory.belongs_work_environment current_user
   end
 
   def show
@@ -39,11 +34,4 @@ class SystemParametersController < ApplicationController
       @system_parameter = SystemParameter.find params[:id]
     end
 
-    def laboratories
-      if current_user.admin? then
-        @laboratories = Laboratory.only_actives
-      else
-        @laboratories = Laboratory.where(laboratory_id: current_user.laboratory)
-      end
-    end
 end

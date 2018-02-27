@@ -12,6 +12,12 @@
             <%= t("activerecord.attributes.system-parameter.feature.#{@system_parameter.feature}") %>
           </div>
         </div>
+        <div class="form-group row ">
+          <label class="col-md-3">Laboratorio </label>
+          <div class="col-md-9">
+            <%= Laboratory.find_by(id: @system_parameter.laboratory_id).name %>
+          </div>
+        </div>
         <div class="form-group row">
           <label class="col-md-3">Descripción </label>
           <div class="col-md-9">

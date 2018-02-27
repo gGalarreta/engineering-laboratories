@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20180221010902) do
 
   # These are extensions that must be enabled in order to support this database
@@ -64,11 +63,6 @@ ActiveRecord::Schema.define(version: 20180221010902) do
     t.string "navigation_name"
     t.string "controller_name"
     t.string "icon"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "profiles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -13,8 +13,10 @@ class ClientsController < ApplicationController
   def create
     @client = User.new client_params
     if @client.save
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to clients_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :new
     end
   end
@@ -24,8 +26,10 @@ class ClientsController < ApplicationController
 
   def update
     if @client.update_attributes client_params
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to clients_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :edit
     end
   end
@@ -35,6 +39,7 @@ class ClientsController < ApplicationController
 
   def toggle_status
     @client.change_status
+    Audit.register current_user, @action, @controller, register_status = true
     respond_to do |format|
       format.js
     end

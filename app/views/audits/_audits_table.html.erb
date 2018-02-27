@@ -1,0 +1,28 @@
+<div class="material-datatable">
+  <table id="client-table" class="table table-no-bordered table-hover sical-data-table" data-placeholder="Buscar Clientes">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Usuario</th>
+        <th>Tipo de Usuario</th>
+        <th>Actividad</th>
+        <th>Accion</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% audits.each do |audit| %>
+        <tr>
+          <td><%= audit.created_at.strftime("%m/%d/%Y") %></td>
+          <td><%= audit.created_at.strftime("%I:%M%p") %></td>
+          <td><%= audit.author %></td>
+          <td><%= audit.author_category %></td>
+          <td><%= audit.action_reference %></td>
+          <td><%= audit.action %></td>
+          <td><%= audit.status %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

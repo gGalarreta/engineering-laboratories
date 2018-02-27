@@ -14,9 +14,11 @@ class EmployeesController < ApplicationController
 
   def create
     @employee = User.initialize employee_params, current_user
-    if @employee.save 
+    if @employee.save
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to employees_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :new
     end
   end
@@ -26,8 +28,10 @@ class EmployeesController < ApplicationController
 
   def update
     if @employee.update_attributes employee_params
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to employees_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :edit
     end
   end
@@ -37,6 +41,7 @@ class EmployeesController < ApplicationController
 
   def toggle_status
     @employee.change_status
+    Audit.register current_user, @action, @controller, register_status = true
     respond_to do |format|
       format.js
     end

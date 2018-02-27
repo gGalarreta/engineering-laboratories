@@ -37,4 +37,7 @@ Rails.application.routes.draw do
 
   resources :profile
   
+
+  resources :audits, only: [:index]
+
 end

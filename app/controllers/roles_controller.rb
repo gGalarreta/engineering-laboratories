@@ -15,8 +15,10 @@ class RolesController < ApplicationController
   def create
     @role = Role.initialize role_params, current_user
     if @role.valid
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to roles_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :new
     end
   end
@@ -27,8 +29,10 @@ class RolesController < ApplicationController
   def update
     @role.assign_attributes role_params
     if @role.valid
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to roles_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :edit
     end
   end
@@ -38,6 +42,7 @@ class RolesController < ApplicationController
 
   def toggle_status
     @role.change_status
+    Audit.register current_user, @action, @controller, register_status = true
     respond_to do |format|
       format.js
     end

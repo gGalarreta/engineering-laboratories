@@ -77,7 +77,7 @@
         <%= f.label :laboratorio %>
       </div>
       <div class="col-md-9 input-wrapper">
-        <%= f.collection_select :laboratory_id, @laboratories, :id, :name, class: "form-control", required: "required" %>
+        <%= f.collection_select :laboratory_id, @laboratories, :id, :name, {}, class: "form-control", required: "required" %>
       </div>
     </div>
   <% end %>  

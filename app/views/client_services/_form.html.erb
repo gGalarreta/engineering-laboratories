@@ -1,0 +1,51 @@
+<%= form_for service, url: path, method: method, :html => { class: "form-horizontal validate sical-form sical-form-validated" } do |f| %>
+  <div class="form-group row">
+    <%= f.label :Laboratorio, class: "col-md-3 col-fom-label" %>
+     <div class="col-md-9 input-wrapper">
+        <%= f.collection_select :laboratory_id, @laboratories, :id, :name, {}, class: "form-control", required: "required" %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Fecha_Aproximada_de_Recojo  %>
+    </div>
+    <div class="date col-md-9 input-wrapper">
+      <div class="input-group sical-input-group">
+        <%= f.text_field :pick_up_date, value: service.pick_up_date ? service.pick_up_date.strftime("%d/%m/%Y") : '' , class: "form-control sical-datepicker", required: "required", date: true %>
+        <div class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <%= f.label :Asunto, class: "col-md-3 col-fom-label" %>
+     <div class="col-md-9">
+        <%= f.text_field :subject,class: "form-control", maxLength:"80", required: "required" %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <%= f.label :Muestras, class: "col-md-3 col-fom-label" %>
+      <div class="col-md-9 text-right" >
+        <%= link_to_add_association "Agregar muestra", f, :preliminary_orders, class: "btn btn-primary sical-btn-add-menu", data: { association_insertion_node: '.samples-elements', association_insertion_method: 'append' } %>
+      </div>
+  </div>
+  <div class="col-md-9 offset-md-3">
+    <div class="form-group row">
+      <div class="col-md-4">Nombre</div>
+      <div class="col-md-2">Cantidad</div>
+      <div class="col-md-6">Descripcion</div>
+    </div>
+    <div class="samples-elements">
+      <%= f.fields_for :preliminary_orders do |preliminary_order| %>
+        <%= render 'preliminary_order_fields', f:preliminary_order %>
+      <% end %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="text-center">
+      <%= link_to "Cancelar", client_services_path, class: "btn btn-primary sical-btn-cancel" %>
+      <%= f.submit "Guardar", class: "btn btn-primary", data: {disable_with: 'Please Wait...'}  %>
+    </div>
+  </div>
+<% end %>

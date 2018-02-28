@@ -2,8 +2,9 @@ class Laboratory < ApplicationRecord
 
   include ApplicationHelper
 
-  has_many :roles
-  has_many :sample_methods
+  has_many :roles, dependent: :destroy
+  has_many :sample_methods, dependent: :destroy
+  has_many :services, dependent: :destroy
 
   validates_presence_of :name
   

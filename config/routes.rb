@@ -34,4 +34,8 @@ Rails.application.routes.draw do
   resources :sample_categories do
     put "toggle_status", on: :member
   end
+
+  resources :client_services do 
+    get 'search', on: :collection
+  end
 end

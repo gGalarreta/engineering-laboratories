@@ -6,6 +6,7 @@ class Service < ApplicationRecord
   belongs_to :client, required: false, class_name: "User"
   
   scope :belongs_to_client, -> (current_user) {where(client_id: current_user)}
+  scope :advanced_search, -> (start_date, end_date) {where('pick_up_date BETWEEN ? AND ?', start_date, end_date)}
 
   accepts_nested_attributes_for :preliminary_orders, allow_destroy: true
 

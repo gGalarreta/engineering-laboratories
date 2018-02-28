@@ -38,4 +38,8 @@ Rails.application.routes.draw do
   resources :client_services do 
     get 'search', on: :collection
   end
+
+  resources :employee_services do 
+    get 'search', on: :collection
+  end
 end

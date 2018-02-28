@@ -1,0 +1,29 @@
+<div class="content">
+  <div class="material-datatables">
+    <table class="table table-hover sical-data-table sical-data-table" data-placeholder="Buscar Solicitudes">
+      <thead>
+        <tr>
+          <th>Asunto</th>
+          <th>Fecha de Recojo</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% services.each do |service| %>
+          <tr>
+            <td><%= service.subject %></td>
+            <td><%= service.pick_up_date.strftime("%d/%m/%Y") %></td>
+            <td>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: <%= service.progress_percentage.to_s %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= service.progress_percentage.to_s %>%</div>
+              </div>
+            <td>
+              <%= link_to '<i class="fa fa-eye" aria-hidden="true"></i>'.html_safe, client_service_path(service), class: "btn btn-info btn-sm", data: { "toggle" => "tooltip" }, title: "Ver" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

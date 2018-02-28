@@ -17,8 +17,10 @@ class SampleCategoriesController < ApplicationController
   def create
     @sample_category = SampleCategory.initialize sample_category_params, current_user
     if @sample_category.valid
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to sample_categories_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :new
     end
   end
@@ -29,8 +31,10 @@ class SampleCategoriesController < ApplicationController
   def update
     @sample_category.assign_attributes sample_category_params
     if @sample_category.valid
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to sample_categories_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :edit
     end
   end
@@ -40,6 +44,7 @@ class SampleCategoriesController < ApplicationController
 
   def toggle_status
     @sample_category.change_status
+    Audit.register current_user, @action, @controller, register_status = true
     respond_to do |format|
       format.js
     end

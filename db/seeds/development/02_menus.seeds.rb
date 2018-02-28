@@ -7,4 +7,4 @@ Menu.create(navigation_name: "Auditoria", controller_name: "audits", icon: 'ti-w
 Menu.create(navigation_name: "Metodos de Ensayo", controller_name: "sample_methods", icon: 'ti-panel')
 Menu.create(navigation_name: "Servicios", controller_name: "client_services", icon: 'ti-panel')
 Menu.create(navigation_name: "Servicios", controller_name: "employee_services", icon: 'ti-panel')
-
+Menu.create(navigation_name: "Categoria de muestra", controller_name: "sample_categories", icon: 'ti-panel')

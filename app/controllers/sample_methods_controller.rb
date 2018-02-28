@@ -14,8 +14,10 @@ class SampleMethodsController < ApplicationController
   def create
     @sample_method = SampleMethod.initialize sample_method_params, current_user
     if @sample_method.save
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to sample_methods_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :new
     end
   end
@@ -25,8 +27,10 @@ class SampleMethodsController < ApplicationController
 
   def update
     if @sample_method.update_attributes sample_method_params
+      Audit.register current_user, @action, @controller, register_status = true
       redirect_to sample_methods_path
     else
+      Audit.register current_user, @action, @controller, register_status = false
       render :edit
     end
   end
@@ -36,6 +40,7 @@ class SampleMethodsController < ApplicationController
 
   def toggle_status
     @sample_method.change_status
+    Audit.register current_user, @action, @controller, register_status = true
     respond_to do |format|
       format.js
     end

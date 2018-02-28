@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :global_variables
 
   def after_sign_in_path_for(resources)
     root_path 
@@ -9,7 +10,7 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end  
 
-  def navigation
+  def global_variables
     @controller = params[:controller]
     @action = params[:action]
   end

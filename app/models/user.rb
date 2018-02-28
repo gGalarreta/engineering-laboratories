@@ -42,6 +42,11 @@ class User < ApplicationRecord
     user
   end
   
+  def assign_attr user_params, params
+    password = params[:password] if params[:password].present?
+    assign_attributes user_params
+  end
+  
   private
 
     def verify_role

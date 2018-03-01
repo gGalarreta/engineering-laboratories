@@ -14,9 +14,40 @@ class EmployeeQuotationsController < ApplicationController
   end
   
   def update
+    @service.update_and_set_next_step quotation_params
+    if @service.save
+      redirect_to employee_quotations_path
+    else
+      render :edit
+    end
   end
 
+  def get_sample_methods
+    respond_to do |format|
+      format.json {
+        render json: {sample_methods: SampleCategory.find(params[:id]).sample_methods}
+      }
+    end
+  end
+
+  def get_sample_method
+    respond_to do |format|
+      format.json {
+        render json: {sample_method: SampleMethod.find(params[:id])}
+      }
+    end
+  end  
+
   private
+
+    def quotation_params
+      params.require(:service).permit(:total, preliminary_orders_attributes: preliminary_orders_params)
+    end
+
+    def preliminary_orders_params
+      [:id, :name, :quantity, :description, :sample_method_id, :sample_category_id, :unit_cost]
+    end
+
     def set_service
       @service = Service.find params[:id]
     end

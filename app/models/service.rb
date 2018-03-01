@@ -25,6 +25,16 @@ class Service < ApplicationRecord
     service
   end
 
+  def self.belongs_work_environment current_user
+    if current_user.admin?
+      Service.all
+    elsif current_user.employee?
+      where(laboratory_id: current_user.laboratory)
+    elsif current_user.client?
+      belongs_to_client(current_user)
+    end
+  end
+
   def progress_percentage
     current_progress = progress_before_type_cast + 1
     ((current_progress.to_f / Service.progresses.size)*100).to_i
@@ -36,14 +46,15 @@ class Service < ApplicationRecord
     current_progress >= limit_progresss
   end
 
-  def self.belongs_work_environment current_user
-    if current_user.admin?
-      Service.all
-    elsif current_user.employee?
-      where(laboratory_id: current_user.laboratory)
-    elsif current_user.client?
-      belongs_to_client(current_user)
-    end
+  def set_next_step
+    current_progress = progress_before_type_cast
+    self.progress = current_progress + 1
   end
+
+  def update_and_set_next_step params
+    assign_attributes params
+    set_next_step
+  end
+
 
 end

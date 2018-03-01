@@ -3,6 +3,7 @@
     <%= f.text_field :name, readonly: true , class: "form-control"%>
   </td>
   <% if @service.created? %>
+  hola 1
     <td class="sample-preliminaries-category-wrapper">
       <%= f.collection_select :sample_category_id, @sample_categories, :id, :name, { prompt: "" }, { class: "form-control sample-preliminaries-category-select", data: { id: f.object.id } } %>
     </td>
@@ -10,6 +11,7 @@
       <%= f.collection_select :sample_method_id, [], :id, :name, {}, { class: "form-control sample-preliminaries-method-select", id: "sample-preliminaries-method-#{f.object.id}", data: { id: f.object.id } } %>
     </td>
   <% else %>
+  hola 2
     <td class="sample-preliminaries-category-wrapper">
       <%= f.collection_select :sample_category_id, @sample_categories, :id, :name, {}, {class: "form-control", disabled: true} %>
     </td>

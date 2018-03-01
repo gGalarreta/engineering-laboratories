@@ -38,7 +38,7 @@ $("#rejected").on('change', function() {
     var $targetId = $(this).data('id');
 
     $.ajax({
-      url: '/quotations/get_sample_methods',
+      url: '/employee_quotations/get_sample_methods',
       method: 'POST',
       dataType: 'json',
       data: {
@@ -83,7 +83,7 @@ $("#rejected").on('change', function() {
       var sampleQuantity = ~~($sampleQuantityInput.attr('value'));
       
       $.ajax({
-        url: '/quotations/get_sample_method',
+        url: '/employee_quotations/get_sample_method',
         method: 'POST',
         dataType: 'json',
         data: {

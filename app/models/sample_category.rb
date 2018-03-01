@@ -4,7 +4,7 @@ class SampleCategory < ApplicationRecord
 
   has_many :samples_category_methods
   has_many :sample_methods, through: :samples_category_methods
-  
+  belongs_to :laboratory
 
   accepts_nested_attributes_for :sample_methods, allow_destroy: true, reject_if: :all_blank
 

@@ -41,9 +41,15 @@ ActiveRecord::Schema.define(version: 20180221010902) do
     t.string "address"
     t.string "phone"
     t.string "description"
+    t.string "area"
+    t.string "location"
+    t.string "web"
+    t.date "creation_date"
     t.boolean "active", default: true
+    t.bigint "sections_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sections_id"], name: "index_laboratories_on_sections_id"
   end
 
   create_table "menu_actions", force: :cascade do |t|

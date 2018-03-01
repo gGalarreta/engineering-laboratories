@@ -1,0 +1,7 @@
+Section.create(name: "Electricidad y Electrónica")
+Section.create(name: "Ingeniería civil")
+Section.create(name: "Ingeniería industrial")
+Section.create(name: "Ingeniería informática")
+Section.create(name: "Ingeniería mecánica")
+Section.create(name: "Ingeniería de minas")
+Section.create(name: "Ingeniería de las telecomunicaciones")

@@ -8,13 +8,16 @@
       </div>
       <div class="sical-content">
         <div class="sub-section-cards">
-          <div class="col-lg-4 sub-section-card is-unread-card">
+          <div class="col-lg-3 sub-section-card is-unread-card">
             <%= render 'aplication/sub_section_card', elements: @unfunded_services, title: "Servicios sin Costear", controller: "employee_quotation" %>
           </div>
-          <div class="col-lg-4 sub-section-card is-read-card">
+          <div class="col-lg-3 sub-section-card is-read-card">
             <%= render 'aplication/sub_section_card', elements: @unadjusted_services, title: "Servicios por Ajustar", controller: "employee_quotation" %>
           </div>
-          <div class="col-lg-4 sub-section-card is-read-card">
+          <div class="col-lg-3 sub-section-card is-read-card">
+            <%= render 'aplication/sub_section_card', elements: @pending_services, title: "Servicios pendientes", controller: "employee_quotation" %>
+          </div>          
+          <div class="col-lg-3 sub-section-card is-read-card">
             <%= render 'aplication/sub_section_card', elements: @contract_bound_services, title: "Proformas aceptadas", controller: "employee_quotation" %>
           </div>
         </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228185627) do
+ActiveRecord::Schema.define(version: 20180301213030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20180228185627) do
     t.string "action_reference"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "costing_comments", force: :cascade do |t|
+    t.string "description"
+    t.bigint "service_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_id"], name: "index_costing_comments_on_service_id"
   end
 
   create_table "features", force: :cascade do |t|
@@ -129,6 +137,8 @@ ActiveRecord::Schema.define(version: 20180228185627) do
     t.string "subject"
     t.integer "progress"
     t.boolean "active", default: true
+    t.boolean "attended", default: true
+    t.boolean "funded_validation", default: true
     t.bigint "client_id"
     t.bigint "employee_id"
     t.bigint "laboratory_id"

@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyText
+  date_of_entry: 2018-02-21
+  amount: 1.5
+  code: MyString
+  name: MyString
+  brand: MyString
+  product_model: MyString
+  amount_unit: MyString
+  status: 1
+  laboratory: one
+
+two:
+  description: MyText
+  date_of_entry: 2018-02-21
+  amount: 1.5
+  code: MyString
+  name: MyString
+  brand: MyString
+  product_model: MyString
+  amount_unit: MyString
+  status: 1
+  laboratory: two

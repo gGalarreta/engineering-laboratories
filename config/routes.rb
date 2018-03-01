@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   devise_for :users
@@ -38,6 +39,12 @@ Rails.application.routes.draw do
   resources :sample_categories do
     put "toggle_status", on: :member
   end
+
+  resources :inventories
+
+  resources :supplies
+
+  resources :audits, only: [:index]
 
   resources :client_services do 
     get 'search', on: :collection

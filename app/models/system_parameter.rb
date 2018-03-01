@@ -17,4 +17,13 @@ class SystemParameter < ApplicationRecord
       where(laboratory_id: current_user.laboratory)
     end
   end
+
+  def self.get_name_in_our_environment current_user
+    name = "Laboratorios de Ingenieria"
+    if current_user.admin?
+      name
+    elsif current_user.employee?
+      where(laboratory_id: current_user.laboratory).name_app.first.description
+    end
+  end
 end

@@ -9,6 +9,7 @@ class User < ApplicationRecord
   belongs_to :role, required: false
   belongs_to :laboratory, required: false
   has_many :client_services, class_name: "Service", foreign_key: 'client_id'
+  has_many :employee_services, class_name: "Service", foreign_key: 'employee_id'
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

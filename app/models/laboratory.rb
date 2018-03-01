@@ -5,7 +5,7 @@ class Laboratory < ApplicationRecord
   has_many :roles, dependent: :destroy
   has_many :sample_methods, dependent: :destroy
   has_many :services, dependent: :destroy
-
+  has_many :sample_categories, dependent: :destroy
   validates_presence_of :name
   
   scope :only_actives, -> {where(active: true)}

@@ -47,4 +47,11 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
 
+  resources :client_quotations
+
+  resources :employee_quotations do
+    post 'get_sample_methods', on: :collection
+    post 'get_sample_method', on: :collection
+  end
+
 end

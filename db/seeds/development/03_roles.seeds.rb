@@ -13,5 +13,8 @@ role.menu_actions.create!(menu: Menu.find_by(controller_name: "client_services")
 
 laboratory = Laboratory.find_by(name: "laboratorio Test A")
 role = Role.create!(name: "empleado", description: "trabajador de laboratorio A", laboratory: laboratory)
+role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Metodos de Ensayo"), create: true, edit: true, view: true, status: true)
+role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Categoria de muestra"), create: true, edit: true, view: true, status: true)
 role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Empleados"), create: true, edit: true, view: true, status: true)
 role.menu_actions.create!(menu: Menu.find_by(controller_name: "employee_services"), create: true, edit: true, view: true, status: true)
+role.menu_actions.create!(menu: Menu.find_by(controller_name: "employee_quotations"), create: true, edit: true, view: true, status: true)

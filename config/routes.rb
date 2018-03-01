@@ -47,4 +47,8 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
 
+  resources :client_quotations
+
+  resources :employee_quotations
+
 end

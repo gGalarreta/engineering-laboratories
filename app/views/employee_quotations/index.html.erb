@@ -1,0 +1,24 @@
+<section class="requests-index">
+  <div class="card">
+    <div class="content">
+      <div class="header card-header-text sical-card-header">
+        <h1 class="sical-card-title">
+          Proformas
+        </h1>
+      </div>
+      <div class="sical-content">
+        <div class="sub-section-cards">
+          <div class="col-lg-4 sub-section-card is-unread-card">
+            <%= render 'aplication/sub_section_card', elements: @unfunded_services, title: "Servicios sin Costear", controller: "employee_quotation" %>
+          </div>
+          <div class="col-lg-4 sub-section-card is-read-card">
+            <%= render 'aplication/sub_section_card', elements: @unadjusted_services, title: "Servicios por Ajustar", controller: "employee_quotation" %>
+          </div>
+          <div class="col-lg-4 sub-section-card is-read-card">
+            <%= render 'aplication/sub_section_card', elements: @contract_bound_services, title: "Proformas aceptadas", controller: "employee_quotation" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

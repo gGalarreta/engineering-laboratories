@@ -4,16 +4,20 @@ class SampleCategory < ApplicationRecord
 
   has_many :samples_category_methods
   has_many :sample_methods, through: :samples_category_methods
+  
 
   accepts_nested_attributes_for :sample_methods, allow_destroy: true, reject_if: :all_blank
 
   accepts_nested_attributes_for :samples_category_methods, allow_destroy: true, reject_if: :all_blank
 
-  def unique_sample_methods
-    sample_methods = self.samples_category_methods.to_a.map(&:sample_method_id)
-    sample_methods.length == sample_methods.uniq.length
-  end
+  scope :only_actives, -> {where(active: true)}
 
+  def self.initialize params, current_user
+    sample_category = SampleCategory.new params
+    sample_category.laboratory = current_user.laboratory if current_user.employee?
+    sample_category
+  end
+  
   def self.belongs_work_environment current_user
     if current_user.admin?
       SampleCategory.all
@@ -21,12 +25,12 @@ class SampleCategory < ApplicationRecord
       where(laboratory_id: current_user.laboratory)
     end
   end
-
-  def self.initialize params, current_user
-    sample_category = SampleCategory.new params
-    sample_category.laboratory = current_user.laboratory if current_user.employee?
-    sample_category
+  
+  def unique_sample_methods
+    sample_methods = self.samples_category_methods.to_a.map(&:sample_method_id)
+    sample_methods.length == sample_methods.uniq.length
   end
+
 
   def valid
     unless unique_sample_methods

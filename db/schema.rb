@@ -71,9 +71,14 @@ ActiveRecord::Schema.define(version: 20180228185627) do
     t.string "name"
     t.string "description"
     t.string "quantity"
+    t.float "unit_cost"
     t.bigint "service_id"
+    t.bigint "sample_method_id"
+    t.bigint "sample_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sample_category_id"], name: "index_preliminary_orders_on_sample_category_id"
+    t.index ["sample_method_id"], name: "index_preliminary_orders_on_sample_method_id"
     t.index ["service_id"], name: "index_preliminary_orders_on_service_id"
   end
 
@@ -120,14 +125,17 @@ ActiveRecord::Schema.define(version: 20180228185627) do
 
   create_table "services", force: :cascade do |t|
     t.date "pick_up_date"
+    t.float "total"
     t.string "subject"
     t.integer "progress"
     t.boolean "active", default: true
     t.bigint "client_id"
+    t.bigint "employee_id"
     t.bigint "laboratory_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_services_on_client_id"
+    t.index ["employee_id"], name: "index_services_on_employee_id"
     t.index ["laboratory_id"], name: "index_services_on_laboratory_id"
   end
 

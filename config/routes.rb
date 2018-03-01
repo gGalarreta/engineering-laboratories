@@ -16,6 +16,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :profile
+
+  resources :audits, only: [:index]
+
   resources :roles do
     put "toggle_status", on: :member
   end
@@ -36,7 +40,24 @@ Rails.application.routes.draw do
     put "toggle_status", on: :member
   end
 
+
   resources :system_parameters
 
   resources :audits, only: [:index]
+
+  resources :client_services do 
+    get 'search', on: :collection
+  end
+
+  resources :employee_services do 
+    get 'search', on: :collection
+  end
+
+  resources :client_quotations
+
+  resources :employee_quotations do
+    post 'get_sample_methods', on: :collection
+    post 'get_sample_method', on: :collection
+  end
+
 end

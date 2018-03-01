@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   belongs_to :role, required: false
   belongs_to :laboratory, required: false
+  has_many :client_services, class_name: "Service", foreign_key: 'client_id'
+  has_many :employee_services, class_name: "Service", foreign_key: 'employee_id'
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -39,6 +41,11 @@ class User < ApplicationRecord
     user.laboratory = current_user.laboratory if current_user.employee?
     user.password = PASSWORD
     user
+  end
+  
+  def assign_attr user_params, params
+    password = params[:password] if params[:password].present?
+    assign_attributes user_params
   end
   
   private

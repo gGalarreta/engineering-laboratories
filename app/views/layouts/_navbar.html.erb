@@ -4,21 +4,21 @@
            <i class="ti-arrow-left"></i>
       </button>
   </div>
-  <div class="collapse navbar-collapse" id="navbarItems">
+  <div class="navbar-collapse" id="navbarItems">
     <ul class="nav navbar-nav ml-auto">
-      <h6 class="user-name">Laboratorios</p></h6>
+      <%#h6 class="user-name">Laboratorios</p></h6%>
       <li>
         <a href="#" class="dropdown-toggle nav-link sical-dropdown" data-toggle="dropdown">
           <i class="ti-user nav-icon"></i>
           <p class="hidden-lg-up">Profile</p>
         </a>
         <div class="dropdown-menu only-dropdown" aria-labelledby="notificationList">
-          <%= link_to "Profile", "#{}", class: "dropdown-item" %>
-          <%# if session[:user_id].nil? %>
-            <%#= link_to "Logout", destroy_user_session_path, :method=>'delete', class: "dropdown-item" %>
+          <%= link_to "Profile", edit_profile_path(current_user) , class: "dropdown-item" %>
+          <% if user_signed_in? %>
+            <%= link_to "Logout", destroy_user_session_path, :method=>'delete', class: "dropdown-item" %>
           <%# else %>
             <%#= link_to "Logout", signout_path, class: "dropdown-item" %>
-          <%# end %>
+          <% end %>
         </div>
       </li>
       <li class="separator hidden-lg-up"></li>

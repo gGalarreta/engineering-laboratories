@@ -1,0 +1,31 @@
+<div class="col-lg-5 col-md-15">
+  <div class="card" style="min-height: 485px">
+    <div class="header card-header-text">
+      <h4 class="title">
+        Empleados
+      </h4>
+    </div>
+    <div class="content table-responsive">
+      <table class="table table-hover">
+        <thead class="text-primary">
+          <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Servicios</th>
+            <th>Laboratorio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.each do |user| %>
+            <tr>
+              <td><%=user.id %></td>
+              <td><%=user.full_name %></td>
+              <td><%=user.employee_services.size %></td>
+              <td><%=user.laboratory.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

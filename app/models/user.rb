@@ -5,6 +5,7 @@ class User < ApplicationRecord
   include ApplicationHelper
 
   PASSWORD = "pucppass2018"
+  MONTHS = ["january","february","march","april","may","june","july","august","september","october","november","december"]
 
   belongs_to :role, required: false
   belongs_to :laboratory, required: false
@@ -48,6 +49,17 @@ class User < ApplicationRecord
     assign_attributes user_params
   end
   
+  def self.get_chart_values_through_months start_month, end_month
+    values = []
+    current_year =  Time.new.year
+    for index in MONTHS.index(start_month.downcase)...(MONTHS.index(end_month.downcase)+1)
+      current_month = Time.new(current_year, index+1, 1)
+      elements = where("created_at > ? AND created_at < ?", current_month.beginning_of_month, current_month.end_of_month)
+      values.push(elements.size)
+    end
+    values
+  end
+
   private
 
     def verify_role

@@ -6,6 +6,8 @@ class CreateServices < ActiveRecord::Migration[5.1]
       t.string :subject
       t.integer :progress
       t.boolean :active, default: true
+      t.boolean :attended, default: true
+      t.boolean :funded_validation, default: true
       t.references :client
       t.references :employee
       t.belongs_to :laboratory, index: true

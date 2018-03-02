@@ -3,21 +3,26 @@
     <%= f.text_field :name, readonly: true , class: "form-control"%>
   </td>
   <% if @service.created? %>
-  hola 1
     <td class="sample-preliminaries-category-wrapper">
       <%= f.collection_select :sample_category_id, @sample_categories, :id, :name, { prompt: "" }, { class: "form-control sample-preliminaries-category-select", data: { id: f.object.id } } %>
     </td>
     <td class="sample-preliminaries-method-wrapper">
       <%= f.collection_select :sample_method_id, [], :id, :name, {}, { class: "form-control sample-preliminaries-method-select", id: "sample-preliminaries-method-#{f.object.id}", data: { id: f.object.id } } %>
     </td>
+  <% elsif !@service.funded_validation %>
+    <td class="sample-preliminaries-category-wrapper">
+      <%= f.collection_select :sample_category_id, @sample_categories, :id, :name, {}, {class: "form-control", disabled: false} %>
+    </td>
+    <td class="sample-preliminaries-method-wrapper">
+      <%= f.collection_select :sample_method_id, @sample_methods, :id, :name, {}, {class: "form-control", disabled: false} %>
+    </td>
   <% else %>
-  hola 2
     <td class="sample-preliminaries-category-wrapper">
       <%= f.collection_select :sample_category_id, @sample_categories, :id, :name, {}, {class: "form-control", disabled: true} %>
     </td>
     <td class="sample-preliminaries-method-wrapper">
       <%= f.collection_select :sample_method_id, @sample_methods, :id, :name, {}, {class: "form-control", disabled: true} %>
-    </td>
+    </td>  
   <% end %>  
   <td class="sample-preliminaries-quantity-wrapper">
     <%= f.text_field :quantity , readonly: true, class: "form-control", id: "sample-preliminaries-quantity-#{f.object.id}" %>
@@ -26,6 +31,6 @@
     <%= f.text_field :unit_cost, readonly: true, class: "form-control", id: "sample-preliminaries-unit-cost-#{f.object.id}", value: f.object.unit_cost %>
   </td>
   <td class="sample-preliminaries-sub-total-wrapper">
-    <input type="text" class="form-control" id="sample-preliminaries-sub-total-<%= f.object.id %>" readonly="true" value="<%= f.object.unit_cost ? f.object.unit_cost * f.object.quantity : 0 %>">
+    <input type="text" class="form-control" id="sample-preliminaries-sub-total-<%= f.object.id %>" readonly="true" value="<%= f.object.unit_cost ? f.object.unit_cost.to_f * f.object.quantity.to_f : 0 %>">
   </td>
 </tr>

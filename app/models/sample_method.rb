@@ -21,7 +21,7 @@ class SampleMethod < ApplicationRecord
   end
 
   def self.belongs_work_environment current_user
-    if current_user.admin?
+    if current_user.admin? or current_user.client?
       SampleCategory.all
     elsif current_user.employee?
       where(laboratory_id: current_user.laboratory)

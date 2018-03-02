@@ -11,6 +11,7 @@ class SampleCategory < ApplicationRecord
   accepts_nested_attributes_for :samples_category_methods, allow_destroy: true, reject_if: :all_blank
 
   scope :only_actives, -> {where(active: true)}
+  scope :belongs_to_client, -> (current_user) {where(client_id: current_user)}
 
   def self.initialize params, current_user
     sample_category = SampleCategory.new params
@@ -19,7 +20,7 @@ class SampleCategory < ApplicationRecord
   end
   
   def self.belongs_work_environment current_user
-    if current_user.admin?
+    if current_user.admin? or current_user.client?
       SampleCategory.all
     elsif current_user.employee?
       where(laboratory_id: current_user.laboratory)

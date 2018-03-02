@@ -8,13 +8,14 @@ class EmployeeQuotationsController < ApplicationController
     @unfunded_services = Service.unfunded_services current_user
     @unadjusted_services = Service.worked_services current_user
     @contract_bound_services = Service.contract_bound_services current_user
+    @pending_services = Service.pending_services current_user
   end
 
   def edit
   end
   
   def update
-    @service.update_and_set_next_step quotation_params
+    @service.update_and_set_next_step quotation_params, current_user
     if @service.save
       redirect_to employee_quotations_path
     else

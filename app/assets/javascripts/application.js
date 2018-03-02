@@ -17,6 +17,7 @@
 //= require urbanui/vendor/flot/jquery.flot.js
 //= require urbanui/vendor/moment.js
 //= require urbanui/vendor/jquery.dataTables.min.js
+//= require Chart.min
 //= require urbanui/inspire.js
 //= require_tree ./urbanui
 //= require_tree ./common

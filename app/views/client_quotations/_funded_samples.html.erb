@@ -1,0 +1,72 @@
+<div id="costeo" class="tabcontent">
+  <table class="table table-no-bordered table-hover">
+    <thead>
+      <th class="funded-sample-table-header is-larger">Nombre</th>
+      <th class="funded-sample-table-header is-medium">Categoría</th>
+      <th class="funded-sample-table-header is-large">Método</th>
+      <th class="funded-sample-table-header is-small">Cantidad</th>
+      <th class="funded-sample-table-header is-medium">Precio</th>
+      <th class="funded-sample-table-header is-medium">Subtotal</th>
+    </thead>
+    <tbody>
+      <%= f.fields_for :preliminary_orders do |preliminary_order| %>
+        <%= render 'preliminary_order_fields', f: preliminary_order %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="col-md-5 offset-md-7 ">
+    <div class="form-group row">
+      <div class="col-md-8 text-center">
+        <strong>Total</strong>
+      </div>
+      <div class="text-center" style="width: 32%">
+        <%= f.text_field :total, readonly: true, class: "form-control", id: "quotation-total-input", value: f.object.total ? f.object.total : '0.0' %>
+      </div>
+    </div>
+  </div>
+
+  <% if @service.can_see_this_information(necessary_progress_state = "initial_costed") %>
+    <div class="form-group row">
+      <div class="col-md-3 col-fom-label">
+        <%= f.label :Confirmación %>
+      </div>
+      <div class="col-md-4">
+        <label class="radio form-check-label sical-radio-button">
+          <span class="icons">
+            <span class="first-icon fa fa-circle-o"></span>
+            <span class="second-icon fa fa-dot-circle-o"></span>
+          </span>
+          <input
+            id="accepted"
+            type="radio"
+            class="form-check-input"
+            data-toggle="radio"
+            name="service[funded_validation]"
+            value="true"
+          >
+          Aceptado
+        </label>
+        <label class="radio form-check-label sical-radio-button">
+          <span class="icons">
+            <span class="first-icon fa fa-circle-o"></span>
+            <span class="second-icon fa fa-dot-circle-o"></span>
+          </span>
+          <input
+            id="rejected"
+            type="radio"
+            class="form-check-input"
+            data-toggle="radio"
+            name="service[funded_validation]"
+            value="false"
+          >
+          No Aceptado
+        </label>
+      </div>
+    </div>
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :comentarios %>
+    </div>    
+    <%= render 'aplication/add_nested_elements', title: "", button_message: "Agregar comentarios", editable: true, f: f, 'association_insert_node': '.samples-information', fields: :costing_comments, partial: 'costing_comment_fields' %>
+    <% end %>
+</div>

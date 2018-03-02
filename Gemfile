@@ -58,6 +58,9 @@ gem 'font-awesome-rails', '~> 4.7.0.2'
 #The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web
 gem 'bootstrap', '~> 4.0.0.alpha6'
 
+#Integrate Chart.js into Rails Asset Pipeline
+gem 'chartjs-ror'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

@@ -9,13 +9,12 @@
       <% if @service.can_see_this_information(necessary_progress_state = "worked") %>
         <button class="tablinks" onclick="openSection(event, 'adjust_cost')">Ajuste de costeo</button>
       <% end %>
-      <% if @service.can_see_this_information(necessary_progress_state = "with_contract") %>
-        <button class="tablinks" onclick="openSection(event, 'contract')">Contrato</button>
-        <button class="tablinks" onclick="openSection(event, 'employee-assign')">Orden de trabajo</button>
+      <% if @service.can_see_this_information(necessary_progress_state = "adjusted") %>
+        <button class="tablinks" onclick="openSection(event, 'terminos-condiciones')">Términos y condiciones</button>
       <% end %>
     </div>
 
-    <%= form_for @service, url: employee_quotation_path, method: :put do |f| %>
+    <%= form_for @service, url: client_quotation_path, method: :put do |f| %>
       <%= render 'preview_information', service: @service, f: f %>
       <%= render 'funded_samples', service: @service, f: f %>
       <%#= render 'quotation_accepted', service: @service, f: f %>
@@ -25,10 +24,14 @@
       <%#= render 'show_contract', service: @service, f: f %>
       <div class="sical-form-buttons">
         <div class="text-center">
-          <%= link_to "Cancelar", employee_quotations_path, class: "btn btn-primary sical-btn-cancel" %>
-          <%= f.submit "Guardar", class: "btn btn-primary", data: {disable_with: 'Please Wait...'}  %>
+          <%= link_to "Cancelar", client_quotations_path, class: "btn btn-primary sical-btn-cancel" %>
+          <% if @service.attended %>
+            <%= f.submit "Guardar", class: "btn btn-primary", data: {disable_with: 'Please Wait...'}  %>
+          <% end %>
         </div>
       </div>
       <% end %>
   </div>
 </div>
+
+

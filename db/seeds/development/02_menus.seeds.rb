@@ -10,3 +10,4 @@ Menu.create(navigation_name: 'Inventario', controller_name: 'inventories', icon:
 Menu.create(navigation_name: "Servicios", controller_name: "client_services", icon: 'ti-panel')
 Menu.create(navigation_name: "Servicios", controller_name: "employee_services", icon: 'ti-panel')
 Menu.create(navigation_name: "Proformas", controller_name: "employee_quotations", icon: 'ti-panel')
+Menu.create(navigation_name: "Proformas", controller_name: "client_quotations", icon: 'ti-panel')

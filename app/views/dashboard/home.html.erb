@@ -1,0 +1,3 @@
+<% if current_user.admin? or current_user.employee? %>
+  <%= render "dashboard/employee/review", users: @employees, services: @services %>
+<% end %>

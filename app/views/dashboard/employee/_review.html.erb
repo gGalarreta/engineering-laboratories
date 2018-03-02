@@ -1,0 +1,5 @@
+<%= render "dashboard/employee/cards", total_users: users.size, total_services: services.size, total: services.sum(:total) %>
+<div class="row">
+  <%= render "dashboard/employee/graphics" %>
+  <%= render "dashboard/employee/employees", users: users.limit(6) %>
+</div>

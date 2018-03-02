@@ -3,7 +3,9 @@
     <thead>
       <tr>
         <th>Descripción</th>
-        <th>Laboratorio</th>
+        <% if current_user.admin? %>
+          <th>Laboratorio</th>
+        <% end %>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -11,7 +13,9 @@
       <% system_parameters.each do |parameter| %>
         <tr>
           <td><%= t("activerecord.attributes.system-parameter.feature.#{parameter.feature}") %></td>
-          <td><%= Laboratory.find_by(id: parameter.laboratory_id).name %>
+          <% if current_user.admin? %>
+            <td><%= Laboratory.find_by(id: parameter.laboratory_id).name %>
+          <% end %>
           <td>
             <%= link_to system_parameter_path(parameter), class: "btn btn-info btn-sm", data: { "toggle" => "tooltip"}, title: "Ver" do %>
               <i class="fa fa-eye" aria-hidden="true"></i>

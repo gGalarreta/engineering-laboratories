@@ -1,5 +1,6 @@
 class Service < ApplicationRecord
 
+  MONTHS = ["january","february","march","april","may","june","july","august","september","october","november","december"]
 
   has_many :preliminary_orders
   has_many :costing_comments
@@ -49,6 +50,17 @@ class Service < ApplicationRecord
       belongs_to_client(current_user)
     end
   end
+
+  def self.get_chart_values_through_months start_month, end_month
+    values = []
+    current_year =  Time.new.year
+    for index in MONTHS.index(start_month.downcase)...(MONTHS.index(end_month.downcase)+1)
+      current_month = Time.new(current_year, index+1, 1)
+      elements = where("created_at > ? AND created_at < ?", current_month.beginning_of_month, current_month.end_of_month)
+      values.push(elements.size)
+    end
+    values
+  end  
 
   def progress_percentage
     current_progress = progress_before_type_cast + 1

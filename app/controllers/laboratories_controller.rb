@@ -50,7 +50,7 @@ class LaboratoriesController < ApplicationController
   private
 
   def laboratory_params
-    params.require(:laboratory).permit(:id, :name, :email, :address, :phone, :description)
+    params.require(:laboratory).permit(:id, :name, :email, :address, :phone, :description, :area, :location, :web, :creation_date)
   end
 
   def set_laboratory

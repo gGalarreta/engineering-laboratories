@@ -114,5 +114,9 @@
 
     $loader.addClass('hidden');
     $content.removeClass('hidden');
+
+    setTimeout(function() {
+      $('.sical-errors').addClass('is-shown');
+    }, 500);
   });
 })();

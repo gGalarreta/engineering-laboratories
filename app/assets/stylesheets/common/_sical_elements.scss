@@ -131,3 +131,17 @@
 .progress{
   height: 20px !important;
 }
+
+
+// Errors overwrite
+.sical-errors {
+  width: 400px;
+  position: absolute !important;
+  right: -410px;
+  top: 10px;
+  transition: .3s all ease-out;
+
+  &.is-shown {
+    right: 10px;
+  }
+}

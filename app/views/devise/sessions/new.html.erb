@@ -1,5 +1,4 @@
-<%= render 'layouts/errors' %>
-
+<%= render 'layouts/errors' unless flash.empty? %>
 <div class="container">
   <div class="card sical-login">
     <div class="login-title"><h1>Inicio de Sesión</h1></div>
@@ -8,6 +7,18 @@
         <%= image_tag "Instituto-calidad.jpg", class: "login-img" %>
       </div>
       <div class="login-form">
+        <div class="text-center device-google">
+          <%#= link_to "/auth/google_oauth2", id: "sign_in" do %>
+            <div class="google-sign-in-button">
+              <div class="google-logo">
+                <%= image_tag "google_logo.png", alt: "Google Logo" %>
+              </div>
+              <div class="google-title">
+                Ingresa con Google
+              </div>
+            </div>
+          <%# end %>
+        </div>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="field login-field">
             <%= f.label :usuario %><br />
@@ -34,18 +45,6 @@
             <%= f.submit "Entrar", class: "btn btn-info btn-fill btn-wd login-button"%>
           </div>
         <% end %>
-        <div class="text-center device-google">
-          <%#= link_to "/auth/google_oauth2", id: "sign_in" do %>
-            <div class="google-sign-in-button">
-              <div class="google-logo">
-                <%= image_tag "google_logo.png", alt: "Google Logo" %>
-              </div>
-              <div class="google-title">
-                Ingresa con Google
-              </div>
-            </div>
-          <%# end %>
-        </div>
       </div>
     </div>
   </div>

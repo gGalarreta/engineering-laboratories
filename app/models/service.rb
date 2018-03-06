@@ -4,6 +4,7 @@ class Service < ApplicationRecord
 
   has_many :preliminary_orders
   has_many :costing_comments
+  has_many :custody_orders
   belongs_to :laboratory, required: false
   belongs_to :client, required: false, class_name: "User"
   belongs_to :employee, required: false, class_name: "User"
@@ -15,11 +16,12 @@ class Service < ApplicationRecord
   scope :contract_bound_services, -> (current_user) {belongs_work_environment(current_user).with_contract}
   scope :funded_services, -> (current_user) {belongs_work_environment(current_user).initial_costed.where(funded_validation: true)}
   scope :adjusted_services, -> (current_user) {belongs_work_environment(current_user).adjusted}
+  scope :unclassified_services, -> (current_user) {belongs_work_environment(current_user).accepted}
 
   accepts_nested_attributes_for :preliminary_orders, allow_destroy: true
   accepts_nested_attributes_for :costing_comments, allow_destroy: true
 
-  enum progress: [:created, :initial_costed, :accepted, :with_assigned_worker, :worked, :adjusted, :with_contract, :completed]
+  enum progress: [:created, :initial_costed, :accepted, :unclassified, :classified, :with_assigned_worker, :worked, :adjusted, :with_contract, :completed]
 
   
   def attended_message
@@ -89,5 +91,12 @@ class Service < ApplicationRecord
     set_next_step current_user
   end
 
+  def asssign_workers_custody service_params, current_user
+    self.preliminary_orders.each.with_index(1) do |preliminary_order, index|
+      custody_order = CustodyOrder.initialize current_user
+      custody_order.assign_attr service_params, preliminary_order,index, self
+      custody_order.save if custody_order.valid?
+    end
+  end
 
 end

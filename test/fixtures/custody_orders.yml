@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pucp_code: MyString
+  subject: MyString
+  employee: one
+  supervisor: one
+  service: one
+  custody_progress: 1
+  supervisor_observation: MyText
+  supervised_validation: false
+  revision_number: 1
+
+two:
+  pucp_code: MyString
+  subject: MyString
+  employee: two
+  supervisor: two
+  service: two
+  custody_progress: 1
+  supervisor_observation: MyText
+  supervised_validation: false
+  revision_number: 1

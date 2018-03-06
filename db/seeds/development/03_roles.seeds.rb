@@ -21,3 +21,9 @@ role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Categoria de mues
 role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Empleados"), create: true, edit: true, view: true, status: true)
 role.menu_actions.create!(menu: Menu.find_by(controller_name: "employee_services"), create: true, edit: true, view: true, status: true)
 role.menu_actions.create!(menu: Menu.find_by(controller_name: "employee_quotations"), create: true, edit: true, view: true, status: true)
+role.menu_actions.create!(menu: Menu.find_by(controller_name: "supervisor_custody_orders"), create: true, edit: true, view: true, status: true)
+role.menu_actions.create!(menu: Menu.find_by(controller_name: "employee_custody_orders"), create: true, edit: true, view: true, status: true)
+
+laboratory = Laboratory.find_by(name: "laboratorio Test A")
+role = Role.create!(name: "empleado_A", description: "trabajador de laboratorio A", laboratory: laboratory)
+role.menu_actions.create!(menu: Menu.find_by(controller_name: "employee_custody_orders"), create: true, edit: true, view: true, status: true)

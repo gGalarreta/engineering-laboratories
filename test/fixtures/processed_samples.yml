@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  preliminary_order: one
+  subtotal_cost: 1.5
+  discount: 1.5
+  custody_order: one
+  classified_values: MyText
+
+two:
+  preliminary_order: two
+  subtotal_cost: 1.5
+  discount: 1.5
+  custody_order: two
+  classified_values: MyText

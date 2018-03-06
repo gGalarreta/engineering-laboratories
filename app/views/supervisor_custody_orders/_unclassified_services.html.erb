@@ -1,0 +1,16 @@
+<%= form_for @service, url: supervisor_custody_order_path, :wrapper => false,  method: :put do |f| %>
+  <div id="service" class="tabcontent" style="display: block;">
+    <h3>Información</h3>
+    <%= render 'show_basic_information', service: @service, f: f %>
+  </div>
+  <div id="sample" class="tabcontent">
+    <h3>Asignación</h3>
+    <%= render 'employees_table', employees: @employees, f: f %>
+  </div>
+  <div class="form-group">
+    <div class="text-center save-worker">
+      <%= link_to "Cancelar", supervisor_custody_orders_path, class: "btn btn-primary sical-btn-cancel" %>
+      <%= f.submit "Asignar", class: "btn btn-primary", data: {disable_with: 'Please Wait...'}  %>
+    </div>
+  </div>
+<% end %>

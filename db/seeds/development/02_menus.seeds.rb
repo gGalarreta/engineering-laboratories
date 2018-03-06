@@ -11,3 +11,5 @@ Menu.create(navigation_name: "Servicios", controller_name: "client_services", ic
 Menu.create(navigation_name: "Servicios", controller_name: "employee_services", icon: 'ti-panel')
 Menu.create(navigation_name: "Proformas", controller_name: "employee_quotations", icon: 'ti-panel')
 Menu.create(navigation_name: "Proformas", controller_name: "client_quotations", icon: 'ti-panel')
+Menu.create(navigation_name: "Custodias asignadas", controller_name: "employee_custody_orders", icon: 'ti-hummer')
+Menu.create(navigation_name: "Ordenes de custodia", controller_name: "supervisor_custody_orders", icon: 'ti-hummer')

@@ -1,0 +1,15 @@
+<div class="card"> 
+  <% if @custody_order.to_classified? %>
+    <div class="tab">
+      <button class="tablinks active" onclick="openSection(event, 'information')">Informacion Cliente</button>
+      <button class="tablinks" onclick="openSection(event, 'custody')">Cadena de Custodia</button>
+    </div>
+    <%= render 'unclassified_orders_to_classified'%>
+  <% else %>
+  <div class="tab">
+    <button class="tablinks active" onclick="openSection(event, 'information')">Informacion Cliente</button>
+      <button class="tablinks" onclick="openSection(event, 'custody')">Revisión de Custodia</button>
+    </div>
+    <%= render 'classified_orders_to_reclassify'%>
+  <% end %>
+</div>

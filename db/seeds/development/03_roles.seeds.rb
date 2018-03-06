@@ -21,3 +21,4 @@ role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Categoria de mues
 role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Empleados"), create: true, edit: true, view: true, status: true)
 role.menu_actions.create!(menu: Menu.find_by(controller_name: "employee_services"), create: true, edit: true, view: true, status: true)
 role.menu_actions.create!(menu: Menu.find_by(controller_name: "employee_quotations"), create: true, edit: true, view: true, status: true)
+role.menu_actions.create!(menu: Menu.find_by(navigation_name: "Inventario"), create: true, edit: true, view: true, status: true)

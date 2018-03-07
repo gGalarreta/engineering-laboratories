@@ -207,6 +207,15 @@ ActiveRecord::Schema.define(version: 20180305182724) do
     t.index ["laboratory_id"], name: "index_supplies_on_laboratory_id"
   end
 
+  create_table "system_parameters", force: :cascade do |t|
+    t.integer "feature"
+    t.text "description"
+    t.bigint "laboratory_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["laboratory_id"], name: "index_system_parameters_on_laboratory_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.date "date_of_birth"
     t.string "ruc"

@@ -16,6 +16,12 @@ class Laboratory < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX},
                     uniqueness: true
 
-
+  def self.belongs_work_environment current_user
+    if current_user.admin?
+      Laboratory.only_actives
+    elsif current_user.employee?
+      where(id: current_user.laboratory)
+    end
+  end
 
 end

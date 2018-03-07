@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     put "toggle_status", on: :member
   end
 
+  resources :system_parameters
+
   resources :inventories
 
   resources :supplies

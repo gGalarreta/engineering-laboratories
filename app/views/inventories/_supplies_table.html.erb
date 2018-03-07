@@ -6,6 +6,9 @@
         <th>Nombre</th>
         <th>Cantidad</th>
         <th>Unidad de Medida</th>
+        <% if current_user.admin? %>
+          <th>Laboratorio</th>
+        <% end %>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -16,6 +19,9 @@
               <td><%= item.name %></td>
               <td><%= item.quantity %></td>
               <td><%= item.measure_unit %></td>
+              <% if current_user.admin? %>
+                <td><%= item.laboratory.name %></td>
+              <% end %>
               <td>
                 <%= link_to '<i class="fa fa-eye" aria-hidden="true"></i>'.html_safe, supply_path(item), class: "btn btn-info btn-sm", data: { "toggle" => "tooltip" }, title: "Ver" %>
                 <%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>'.html_safe, edit_supply_path(item), class: "btn btn-success btn-sm", data: { "toggle" => "tooltip" }, title: "Editar" %>

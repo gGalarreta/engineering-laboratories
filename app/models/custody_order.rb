@@ -20,30 +20,29 @@ class CustodyOrder < ApplicationRecord
   end
 
   def handling_internal_process current_user
-      incredRevision = false
-      if self.to_reclassify?
-        increseRevision = true
-      end
-      self.to_check! if self.to_reclassify?
-      if self.to_check? and self.supervised_validation
-        self.completed!
-      end
-      self.to_reclassify! if ((self.to_check? and !increseRevision) and !self.supervised_validation)
-      self.to_check! if self.to_classified?
-   end
+    incredRevision = false
+    if self.to_reclassify?
+      increseRevision = true
+    end
+    self.to_check! if self.to_reclassify?
+    if self.to_check? and self.supervised_validation
+      self.completed!
+    end
+    self.to_reclassify! if ((self.to_check? and !increseRevision) and !self.supervised_validation)
+    self.to_check! if self.to_classified?
+  end
 
-   def assign_attr params, preliminary_order,index, service
+  def assign_attr params, preliminary_order,index, service
     processed_sample = ProcessedSample.initialize preliminary_order, self
     processed_sample.save
     custody_order_params = {service_id: service.id}
     custody_order_params[:subject] = service.subject + " " + preliminary_order.sample_category.name
     custody_order_params[:employee_id] = params["selected_employee_" + preliminary_order.id.to_s]
     self.assign_attributes custody_order_params
-   end
+  end
 
-   def assign_validation params
-    p params[:supervised_validation]
-     self.supervised_validation = params["custody_order"][:supervised_validation]
-   end
+  def assign_validation params
+    self.supervised_validation = params["custody_order"][:supervised_validation]
+  end
 
 end

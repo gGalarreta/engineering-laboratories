@@ -9,10 +9,10 @@ class ProcessedSample < ApplicationRecord
     processed_sample
   end
 
-  def update params,preliminary_order, custody_order
+  def update_params params, preliminary_order
     self.description = params[:description]
-    self.client_code = preliminary_order.name
     self.pucp_code = params[:pucp_code]
+    self.client_code = preliminary_order.name
     self.classified_values = params["sp_value"]
     self.save
   end

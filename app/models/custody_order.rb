@@ -8,7 +8,7 @@ class CustodyOrder < ApplicationRecord
   scope :custody_orders_per_service, -> (service) {where(service_id: service.id)}
   scope :custody_orders_to_check, -> (current_user) {(where(supervisor_id: current_user).to_check)}
   scope :custody_orders_to_classified, -> (current_user) {(where(employee_id: current_user).to_classified)}
-  scope :custody_orders_to_reclassify, -> (current_user) {(where(supervisor_id: current_user).to_reclassify)}
+  scope :custody_orders_to_reclassify, -> (current_user) {where(employee_id: current_user).to_reclassify}
 
   enum custody_progress: [:to_classified,:to_check,:to_reclassify,:completed]
 
@@ -25,7 +25,9 @@ class CustodyOrder < ApplicationRecord
         increseRevision = true
       end
       self.to_check! if self.to_reclassify?
-      self.completed! if self.to_check? and self.supervised_validation
+      if self.to_check? and self.supervised_validation
+        self.completed!
+      end
       self.to_reclassify! if ((self.to_check? and !increseRevision) and !self.supervised_validation)
       self.to_check! if self.to_classified?
    end
@@ -37,6 +39,11 @@ class CustodyOrder < ApplicationRecord
     custody_order_params[:subject] = service.subject + " " + preliminary_order.sample_category.name
     custody_order_params[:employee_id] = params["selected_employee_" + preliminary_order.id.to_s]
     self.assign_attributes custody_order_params
+   end
+
+   def assign_validation params
+    p params[:supervised_validation]
+     self.supervised_validation = params["custody_order"][:supervised_validation]
    end
 
 end

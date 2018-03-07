@@ -17,7 +17,7 @@ class EmployeeCustodyOrdersController < ApplicationController
   end
 
   def update
-    @processed_sample.update params, @preliminary_order, @custody_order
+    @processed_sample.update_params params,@preliminary_order
     if @custody_order.to_reclassify?
       @custody_order.supervisor_observation = params[:custody_order][:supervisor_observation]
     end

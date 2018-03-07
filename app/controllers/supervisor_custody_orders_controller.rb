@@ -1,9 +1,7 @@
 class SupervisorCustodyOrdersController < ApplicationController
 
-  before_action :set_preliminary_order, only: [:edit, :update]
   before_action :set_custody_order, only: [:custody_check,:custody_check_update]
   before_action :set_custody_table, only: [:custody_check]
-  before_action :sample_categories, only: [:update]
   before_action :set_service, only: [:edit,:update]
 
   def index
@@ -30,37 +28,23 @@ class SupervisorCustodyOrdersController < ApplicationController
 
   def custody_check_update
     begin
-      @custody_order.assign_attributes custody_order_params
-      if @custody_order.valid?
-        @custody_order.handling_internal_process(current_user)
-        left_orders = CustodyOrder.custody_orders_per_service(@service).where.not(custody_progress: :completed)
-        if !left_orders.any?
-          @service.set_next_step current_user
-        end
-        if @custody_order.to_reclassify?
-          @custody_order.increment!(:revision_number)
-        end
-        redirect_to supervisor_custody_orders_path
-      else
-        render :custody_check
+      @custody_order.assign_validation params
+      @custody_order.handling_internal_process(current_user)
+      if CustodyOrder.custody_orders_per_service(@service).where.not(custody_progress: "completed").length == 0
+        @service.set_next_step current_user
+        @service.save
       end
-    rescue Exception => e
+      if @custody_order.to_reclassify?
+        @custody_order.increment!(:revision_number)
+      end
       redirect_to supervisor_custody_orders_path
     end
   end
 
   private
 
-    def service_params
-      params.require(:service).permit(:laboratory_id, :user_id, :employee_id, :subject, :pick_up_date, preliminary_orders_attributes: preliminary_orders_params)
-    end
-
-    def preliminary_orders_params
-      [:id, :name, :quantity, :description]
-    end
-
     def custody_order_params
-      params.require(:custody_order).permit(:supervisor,:employee,:revision_number,:supervisor_observation,:supervised_validation, processed_sample_attributes: processed_samples_params)
+      params.require(:custody_order).permit(:revision_number,:supervisor_observation,:supervised_validation, processed_sample_attributes: processed_samples_params)
     end
 
     def processed_samples_params
@@ -70,10 +54,6 @@ class SupervisorCustodyOrdersController < ApplicationController
     def set_service
       @service = Service.find params[:id]
       @custody_orders = CustodyOrder.where(service_id: params[:id])
-    end
-
-    def set_preliminary_order
-      @preliminary_order = PreliminaryOrder.find params[:id]
     end
 
     def set_custody_order
@@ -90,10 +70,6 @@ class SupervisorCustodyOrdersController < ApplicationController
       cross_table = SamplesCategoryMethod.where(sample_category_id: sample_id).where(sample_method_id: method_id).first
       @features = Feature.where(samples_category_method_id: cross_table.id)
       @cols = @features.pluck(:description)
-    end
-
-    def sample_categories
-      @sample_categories = SampleCategory.belongs_work_environment(current_user).only_actives
     end
 
 end

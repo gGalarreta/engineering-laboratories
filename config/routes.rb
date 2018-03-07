@@ -61,7 +61,9 @@ Rails.application.routes.draw do
     post 'get_sample_method', on: :collection
   end
 
-  resources :employee_custody_orders
+  resources :employee_custody_orders do 
+    get 'values', on: :member
+  end
 
   resources :supervisor_custody_orders do
     get 'custody_check', on: :member

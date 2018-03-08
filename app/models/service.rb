@@ -4,6 +4,7 @@ class Service < ApplicationRecord
 
   has_many :preliminary_orders
   has_many :costing_comments
+  has_many :custody_orders
   belongs_to :laboratory, required: false
   belongs_to :client, required: false, class_name: "User"
   belongs_to :employee, required: false, class_name: "User"
@@ -15,11 +16,12 @@ class Service < ApplicationRecord
   scope :contract_bound_services, -> (current_user) {belongs_work_environment(current_user).with_contract}
   scope :funded_services, -> (current_user) {belongs_work_environment(current_user).initial_costed.where(funded_validation: true)}
   scope :adjusted_services, -> (current_user) {belongs_work_environment(current_user).adjusted}
+  scope :unclassified_services, -> (current_user) {belongs_work_environment(current_user).accepted}
 
   accepts_nested_attributes_for :preliminary_orders, allow_destroy: true
   accepts_nested_attributes_for :costing_comments, allow_destroy: true
 
-  enum progress: [:created, :initial_costed, :accepted, :with_assigned_worker, :worked, :adjusted, :with_contract, :completed]
+  enum progress: [:created, :initial_costed, :accepted, :unclassified, :classified, :with_assigned_worker, :worked, :adjusted, :with_contract, :completed]
 
   
   def attended_message
@@ -75,8 +77,6 @@ class Service < ApplicationRecord
 
   def set_next_step current_user
     current_progress = progress_before_type_cast
-    #con el tiempo habra que agregar mas validaciones 
-    #cuando quiera avanzar de nivelo quedarse en el mismo
     if self.funded_validation
       self.progress = current_progress + 1
     else
@@ -89,5 +89,24 @@ class Service < ApplicationRecord
     set_next_step current_user
   end
 
+  def update_progress_if_finish
+    if CustodyOrder.belongs_to_service(self).where.not(custody_progress: "completed").empty?
+      set_next_step
+      save
+    end
+  end
+
+
+  def create_custory_orders_from_preliminary_order params, current_user
+    self.preliminary_orders.each.with_index(1) do |preliminary_order, index|
+      custody_order = CustodyOrder.initialize current_user, params, preliminary_order, self
+      custody_order.create_processed_sample preliminary_order
+    end
+  end
+
+  def assign_worker_to_job params, current_user
+    create_custory_orders_from_preliminary_order params, current_user
+    set_next_step current_user
+  end
 
 end

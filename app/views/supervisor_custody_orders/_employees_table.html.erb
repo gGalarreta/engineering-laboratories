@@ -1,0 +1,24 @@
+<table class="table table-no-bordered table-hover">
+  <thead>
+    <th>Nombre</th>
+    <th>Categoría</th>
+    <th>Método</th>
+    <th>Acreditado</th>
+    <th>Asignación</th>
+  </thead>
+  <tbody>
+    <% @service.preliminary_orders.each do |preliminary_order| %>
+      <tr>
+        <td><%= preliminary_order.description %></td>
+        <td><%= preliminary_order.sample_category.name %></td>
+        <td><%= preliminary_order.sample_method.name %></td>
+        <td><% if preliminary_order.sample_method.accredited? %>
+          Si
+        <% else %>
+          No
+        <% end %></td>
+        <td><%= f.collection_select :employee_id, @employees,:id, :full_name, {}, { name: "selected_employee_#{preliminary_order.id.to_s}", class: "form-control" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

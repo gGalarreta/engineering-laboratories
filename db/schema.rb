@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301213030) do
+ActiveRecord::Schema.define(version: 20180305182724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,22 @@ ActiveRecord::Schema.define(version: 20180301213030) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["service_id"], name: "index_costing_comments_on_service_id"
+  end
+
+  create_table "custody_orders", force: :cascade do |t|
+    t.string "subject"
+    t.bigint "employee_id"
+    t.bigint "supervisor_id"
+    t.bigint "service_id"
+    t.integer "custody_progress"
+    t.text "supervisor_observation"
+    t.boolean "supervised_validation", default: true
+    t.integer "revision_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_custody_orders_on_employee_id"
+    t.index ["service_id"], name: "index_custody_orders_on_service_id"
+    t.index ["supervisor_id"], name: "index_custody_orders_on_supervisor_id"
   end
 
   create_table "features", force: :cascade do |t|
@@ -103,6 +119,21 @@ ActiveRecord::Schema.define(version: 20180301213030) do
     t.index ["sample_category_id"], name: "index_preliminary_orders_on_sample_category_id"
     t.index ["sample_method_id"], name: "index_preliminary_orders_on_sample_method_id"
     t.index ["service_id"], name: "index_preliminary_orders_on_service_id"
+  end
+
+  create_table "processed_samples", force: :cascade do |t|
+    t.string "pucp_code"
+    t.string "client_code"
+    t.text "description"
+    t.bigint "preliminary_order_id"
+    t.float "subtotal_cost"
+    t.float "discount"
+    t.bigint "custody_order_id"
+    t.text "classified_values"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["custody_order_id"], name: "index_processed_samples_on_custody_order_id"
+    t.index ["preliminary_order_id"], name: "index_processed_samples_on_preliminary_order_id"
   end
 
   create_table "roles", force: :cascade do |t|

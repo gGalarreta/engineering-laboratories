@@ -14,8 +14,8 @@ class EmployeeCustodyOrdersController < ApplicationController
   end
 
   def update
-    @processed_sample.update_order params, @preliminary_order
-    if @custody_order.update_order
+    @processed_sample.update_order params, @preliminary_order, @custody_order
+    if @custody_order.update_order current_user
       redirect_to employee_custody_orders_path
     else
       render :edit

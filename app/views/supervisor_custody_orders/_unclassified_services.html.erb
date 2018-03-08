@@ -6,11 +6,11 @@
   <div id="sample" class="tabcontent">
     <h3>Asignación</h3>
     <%= render 'employees_table', employees: employees, f: f %>
-  </div>
-  <div class="form-group">
-    <div class="text-center save-worker">
-      <%= link_to "Cancelar", supervisor_custody_orders_path, class: "btn btn-primary sical-btn-cancel" %>
-      <%= f.submit "Asignar", class: "btn btn-primary", data: {disable_with: 'Please Wait...'}  %>
+    <div class="form-group">
+      <div class="text-center save-worker">
+        <%= link_to "Cancelar", supervisor_custody_orders_path, class: "btn btn-primary sical-btn-cancel" %>
+        <%= f.submit "Asignar", class: "btn btn-primary", data: {disable_with: 'Please Wait...'}  %>
+      </div>
     </div>
   </div>
 <% end %>

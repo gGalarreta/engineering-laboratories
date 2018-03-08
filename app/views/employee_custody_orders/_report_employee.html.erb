@@ -8,13 +8,13 @@
   <tbody>
     <tr>
       <td><%= f.text_field :pucp_code %></td>
-      <td><%= @processed_sample.preliminary_order.name %></td>
-      <td><%= @processed_sample.preliminary_order.sample_category.name %></td>
-      <td><%= @processed_sample.preliminary_order.sample_method.name %></td>
+      <td><%= processed_sample.preliminary_order.name %></td>
+      <td><%= processed_sample.preliminary_order.sample_category.name %></td>
+      <td><%= processed_sample.preliminary_order.sample_method.name %></td>
     </tr>
   </tbody>
 </table>
-<%= render 'filling_up_sample_features_edit', f: f %>
+<%= render 'filling_up_sample_features_edit',processed_sample: processed_sample, f: f %>
 <%= form_for @custody_order, url: employee_custody_order_path, :wrapper => false,  method: :put do |f| %>
   <div class="text-center">
     <br></br>

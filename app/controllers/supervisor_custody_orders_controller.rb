@@ -31,8 +31,8 @@ class SupervisorCustodyOrdersController < ApplicationController
 
   def custody_check_update
     @custody_order.assign_attributes custody_order_supervision_params
-    if @custody_order.update_order
-      @service_belongs_to_custody_order
+    if @custody_order.update_order current_user
+      @service_belongs_to_custody_order.update_progress_if_finish current_user
       redirect_to supervisor_custody_orders_path
     else
       render :custody_check
@@ -75,7 +75,7 @@ class SupervisorCustodyOrdersController < ApplicationController
 
     def set_custody_table
       @rows = @preliminary_order.number_of_samples
-      @cols = @preliminary_order.number_of_features      
+      @cols = @preliminary_order.number_of_features
     end
 
     def set_employees

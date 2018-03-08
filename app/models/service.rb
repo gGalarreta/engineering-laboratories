@@ -89,9 +89,9 @@ class Service < ApplicationRecord
     set_next_step current_user
   end
 
-  def update_progress_if_finish
+  def update_progress_if_finish current_user
     if CustodyOrder.belongs_to_service(self).where.not(custody_progress: "completed").empty?
-      set_next_step
+      set_next_step current_user
       save
     end
   end

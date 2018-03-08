@@ -1,4 +1,5 @@
 class ProcessedSample < ApplicationRecord
+  
   belongs_to :preliminary_order
   belongs_to :custody_order
 
@@ -6,7 +7,7 @@ class ProcessedSample < ApplicationRecord
     processed_sample = ProcessedSample.new
     processed_sample.preliminary_order = preliminary_order
     processed_sample.custody_order = custody_order
-    processed_sample
+    processed_sample.save
   end
 
   def update_params params, preliminary_order

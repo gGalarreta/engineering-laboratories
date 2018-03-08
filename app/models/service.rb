@@ -77,8 +77,6 @@ class Service < ApplicationRecord
 
   def set_next_step current_user
     current_progress = progress_before_type_cast
-    #con el tiempo habra que agregar mas validaciones 
-    #cuando quiera avanzar de nivelo quedarse en el mismo
     if self.funded_validation
       self.progress = current_progress + 1
     else
@@ -91,12 +89,21 @@ class Service < ApplicationRecord
     set_next_step current_user
   end
 
-  def asssign_workers_custody service_params, current_user
+
+  def create_custory_orders_from_preliminary_order params, current_user
     self.preliminary_orders.each.with_index(1) do |preliminary_order, index|
-      custody_order = CustodyOrder.initialize current_user
-      custody_order.assign_attr service_params, preliminary_order,index, self
-      custody_order.save if custody_order.valid?
+      custody_order = CustodyOrder.initialize current_user, params, preliminary_order, self
+      custody_order.create_processed_sample preliminary_order
     end
+  end
+
+  def assign_worker_to_job params, current_user
+    create_custory_orders_from_preliminary_order params, current_user
+    p "**********************"
+    ap self
+    set_next_step current_user
+    p "**********************"
+    ap self
   end
 
 end

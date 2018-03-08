@@ -17,8 +17,7 @@ class SupervisorCustodyOrdersController < ApplicationController
   end
 
   def update
-    @service.asssign_workers_custody params, current_user
-    @service.set_next_step current_user
+    @service.assign_worker_to_job params, current_user
     if @service.save
       redirect_to supervisor_custody_orders_path
     else

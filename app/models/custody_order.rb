@@ -1,4 +1,5 @@
 class CustodyOrder < ApplicationRecord
+  
   belongs_to :employee , required: false, class_name: "User"
   belongs_to :supervisor , required: false, class_name: "User"
   belongs_to :service , required: false
@@ -12,10 +13,14 @@ class CustodyOrder < ApplicationRecord
 
   enum custody_progress: [:to_classified,:to_check,:to_reclassify,:completed]
 
-  def self.initialize current_user
+  def self.initialize current_user, params, preliminary_order, service
     custody_order = CustodyOrder.new
     custody_order.supervisor = current_user
     custody_order.custody_progress = "to_classified"
+    custody_order.service = service
+    custody_order.subject = service.subject + " " + preliminary_order.sample_category.name
+    custody_order.employee_id = params["selected_employee_" + preliminary_order.id.to_s]
+    custody_order.save
     custody_order
   end
 
@@ -32,13 +37,8 @@ class CustodyOrder < ApplicationRecord
     self.to_check! if self.to_classified?
   end
 
-  def assign_attr params, preliminary_order,index, service
-    processed_sample = ProcessedSample.initialize preliminary_order, self
-    processed_sample.save
-    custody_order_params = {service_id: service.id}
-    custody_order_params[:subject] = service.subject + " " + preliminary_order.sample_category.name
-    custody_order_params[:employee_id] = params["selected_employee_" + preliminary_order.id.to_s]
-    self.assign_attributes custody_order_params
+  def create_processed_sample preliminary_order
+    ProcessedSample.initialize preliminary_order, self
   end
 
   def assign_validation params

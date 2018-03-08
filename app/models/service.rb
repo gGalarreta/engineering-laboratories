@@ -24,7 +24,7 @@ class Service < ApplicationRecord
   accepts_nested_attributes_for :costing_comments, allow_destroy: true
   #accepts_nested_attributes_for :processed_samples, reject_if: :all_blank, allow_destroy: true
 
-  enum progress: [:created, :initial_costed, :accepted, :unadjusted, :ajusted, :engaged, :with_assigned_worker, :classified, :worked, :adjusted, :with_contract, :completed]
+  enum progress: [:created, :initial_costed, :accepted, :unclassified, :classified, :unadjusted, :ajusted, :engaged, :with_assigned_worker, :worked, :adjusted, :with_contract, :completed]
 
   
   def attended_message

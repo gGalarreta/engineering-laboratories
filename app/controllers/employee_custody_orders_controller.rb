@@ -10,14 +10,6 @@ class EmployeeCustodyOrdersController < ApplicationController
     @custody_orders_to_reclassify = CustodyOrder.custody_orders_to_reclassify current_user
   end
 
-  def values
-    #@lower_range = @features.pluck(:lower_range)
-    #@upper_range = @features.pluck(:upper_range)
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def edit
   end
 

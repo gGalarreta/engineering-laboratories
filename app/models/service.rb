@@ -89,6 +89,13 @@ class Service < ApplicationRecord
     set_next_step current_user
   end
 
+  def update_progress_if_finish
+    if CustodyOrder.belongs_to_service(self).where.not(custody_progress: "completed").empty?
+      set_next_step
+      save
+    end
+  end
+
 
   def create_custory_orders_from_preliminary_order params, current_user
     self.preliminary_orders.each.with_index(1) do |preliminary_order, index|

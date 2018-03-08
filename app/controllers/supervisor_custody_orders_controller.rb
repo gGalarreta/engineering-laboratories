@@ -30,21 +30,20 @@ class SupervisorCustodyOrdersController < ApplicationController
   end
 
   def custody_check_update
-    begin
-      @custody_order.assign_validation params
-      @custody_order.handling_internal_process(current_user)
-      if CustodyOrder.custody_orders_per_service(@service).where.not(custody_progress: "completed").length == 0
-        @service.set_next_step current_user
-        @service.save
-      end
-      if @custody_order.to_reclassify?
-        @custody_order.increment!(:revision_number)
-      end
+    @custody_order.assign_attributes custody_order_supervision_params
+    if @custody_order.update_order
+      @service_belongs_to_custody_order
       redirect_to supervisor_custody_orders_path
+    else
+      render :custody_check
     end
   end
 
   private
+
+    def custody_order_supervision_params
+      params.require(:custody_order).permit(:supervised_validation)
+    end
 
     def custody_order_params
       params.require(:custody_order).permit(:revision_number,:supervisor_observation,:supervised_validation, processed_sample_attributes: processed_samples_params)

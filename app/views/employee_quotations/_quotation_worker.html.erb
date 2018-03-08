@@ -1,0 +1,26 @@
+<div id="employee-assign" class="tabcontent">
+  <table class="table table-hover sical-data-table sical-data-table"  data-placeholder="Buscar Muestra">
+    <thead>
+      <th>Código de muestra</th>
+      <th>Categoría</th>
+      <th>Método</th>
+      <th>Acreditado</th>
+      <th>Asignación</th>
+    </thead>
+    <tbody>
+    <% service.processed_samples.each.with_index(1) do |processed_sample, index| %>
+        <tr>
+          <td><%= processed_sample.description %></td>
+          <td><%#= processed_sample.sample_category.name %></td>
+          <td><%#= processed_sample.sample_method_name %></td>
+          <td><%# if processed_sample.sample_method.accredited? %>
+            Si
+        <%# else %> 
+            No 
+        <%# end %></td> 
+          <td><%= f.collection_select :id, @employees,:id, :full_name,{}, {full_name: "selected_employee_#{index}"} %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

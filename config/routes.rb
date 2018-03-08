@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   resources :employee_quotations do
     post 'get_sample_methods', on: :collection
     post 'get_sample_method', on: :collection
+    get 'contract_pdf', on: :collection
   end
 
   resources :employee_custody_orders do 

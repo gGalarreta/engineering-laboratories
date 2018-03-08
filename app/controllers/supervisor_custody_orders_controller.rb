@@ -3,6 +3,7 @@ class SupervisorCustodyOrdersController < ApplicationController
   before_action :set_custody_order, only: [:custody_check,:custody_check_update]
   before_action :set_custody_table, only: [:custody_check]
   before_action :set_service, only: [:edit,:update]
+  before_action :set_employees, only: [:edit, :update]
 
   def index
     @services_unclassified = Service.unclassified_services current_user
@@ -10,7 +11,6 @@ class SupervisorCustodyOrdersController < ApplicationController
   end
 
   def edit
-    @employees = User.belongs_work_environment current_user
   end
 
   def custody_check
@@ -70,6 +70,10 @@ class SupervisorCustodyOrdersController < ApplicationController
       cross_table = SamplesCategoryMethod.where(sample_category_id: sample_id).where(sample_method_id: method_id).first
       @features = Feature.where(samples_category_method_id: cross_table.id)
       @cols = @features.pluck(:description)
+    end
+
+    def set_employees
+      @employees = User.valid_workers_to_assign_job current_user
     end
 
 end

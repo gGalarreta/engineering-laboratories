@@ -28,11 +28,11 @@
         </tr>
       </thead>
       <tbody>
-        <% service.preliminary_orders.each do |sp|%>
+        <% service.preliminary_orders.each do |preliminary_order|%>
           <tr>
-            <td><%= sp.name %></td>
-            <td><%= sp.quantity %></td>
-            <td><%= sp.description %></td>
+            <td><%= preliminary_order.name %></td>
+            <td><%= preliminary_order.quantity %></td>
+            <td><%= preliminary_order.description %></td>
           </tr>
         <% end %>
       </tbody>

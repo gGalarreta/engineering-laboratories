@@ -20,6 +20,7 @@ class User < ApplicationRecord
 
   scope :only_clients_actives, -> {client.where(active: true)}
   scope :only_employees_actives, -> {employee.where(active: true)}
+  scope :valid_workers_to_assign_job, ->(current_user) {belongs_work_environment(current_user).where.not(id: current_user.id)}
   
   enum category: [:admin, :employee, :client]
   enum gender: [:male, :female]
@@ -36,6 +37,7 @@ class User < ApplicationRecord
       where(laboratory_id: current_user.laboratory)
     end
   end
+
 
   def self.initialize params, current_user
     user = User.new params

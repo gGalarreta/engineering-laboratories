@@ -9,7 +9,7 @@ class CustodyOrder < ApplicationRecord
   scope :belongs_to_service, -> (service) {where(service_id: service.id)}
   scope :custody_orders_to_check, -> (current_user) {(where(supervisor_id: current_user).to_check)}
   scope :custody_orders_to_classified, -> (current_user) {(where(employee_id: current_user).to_classified)}
-  scope :custody_orders_to_reclassify, -> (current_user) {where(employee_id: current_user)}
+  scope :custody_orders_to_reclassify, -> (current_user) {where(employee_id: current_user).where(supervised_validation: false)}
 
   enum custody_progress: [:to_classified, :to_check, :completed]
 

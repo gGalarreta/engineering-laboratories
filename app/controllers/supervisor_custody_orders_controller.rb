@@ -1,9 +1,9 @@
 class SupervisorCustodyOrdersController < ApplicationController
 
-  before_action :set_custody_order, only: [:edit, :update, :custody_check, :custody_check_update]
+  before_action :set_custody_order, only: [:custody_check, :custody_check_update]
   before_action :set_service_belongs_to_custody_order, only: [:custody_check, :custody_check_update]
-  before_action :set_processed_sample, only: [:edit, :update, :custody_check, :custody_check_update]
-  before_action :set_preliminary_order, only: [:edit, :update, :custody_check, :custody_check_update]  
+  before_action :set_processed_sample, only: [:custody_check, :custody_check_update]
+  before_action :set_preliminary_order, only: [:custody_check, :custody_check_update]  
   before_action :set_service, only: [:edit, :update]
   before_action :set_employees, only: [:edit, :update, :custody_check, :custody_check_update]
   before_action :set_custody_table, only: [:custody_check]

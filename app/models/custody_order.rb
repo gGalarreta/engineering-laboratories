@@ -11,7 +11,7 @@ class CustodyOrder < ApplicationRecord
   scope :custody_orders_to_classified, -> (current_user) {(where(employee_id: current_user).to_classified)}
   scope :custody_orders_to_reclassify, -> (current_user) {where(employee_id: current_user).to_reclassify}
 
-  enum custody_progress: [:to_classified,:to_check,:to_reclassify,:completed]
+  enum custody_progress: [:to_classified, :to_check, :to_reclassify, :completed]
 
   def self.initialize current_user, params, preliminary_order, service
     custody_order = CustodyOrder.new
@@ -36,6 +36,20 @@ class CustodyOrder < ApplicationRecord
     self.to_reclassify! if ((self.to_check? and !increseRevision) and !self.supervised_validation)
     self.to_check! if self.to_classified?
   end
+
+  def set_next_step
+    current_progress = custody_progress_before_type_cast
+    if self.supervised_validation
+      self.custody_progress = current_progress + 1
+    end
+
+  end
+
+  def update_order
+    set_next_step
+    save
+  end
+
 
   def create_processed_sample preliminary_order
     ProcessedSample.initialize preliminary_order, self

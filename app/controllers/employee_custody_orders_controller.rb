@@ -1,7 +1,9 @@
 class EmployeeCustodyOrdersController < ApplicationController
 
   before_action :set_custody_order, only: [:edit, :update]
-  before_action :set_custody_table, only: [:values,:edit,:update]
+  before_action :set_processed_sample, only: [:edit, :update]
+  before_action :set_preliminary_order, only: [:edit, :update]
+  before_action :set_custody_table, only: [:values, :edit, :update]
 
   def index
     @custody_orders_to_classified = CustodyOrder.custody_orders_to_classified current_user
@@ -9,20 +11,23 @@ class EmployeeCustodyOrdersController < ApplicationController
   end
 
   def values
-    @lower_range = @features.pluck(:lower_range)
-    @upper_range = @features.pluck(:upper_range)
+    #@lower_range = @features.pluck(:lower_range)
+    #@upper_range = @features.pluck(:upper_range)
     respond_to do |format|
       format.js
     end
   end
 
+  def edit
+  end
+
   def update
-    @processed_sample.update_params params,@preliminary_order
-    if @custody_order.to_reclassify?
-      @custody_order.supervisor_observation = params[:custody_order][:supervisor_observation]
+    @processed_sample.update_order params, @preliminary_order
+    if @custody_order.update_order
+      redirect_to employee_custody_orders_path
+    else
+      render :edit
     end
-    @custody_order.handling_internal_process current_user
-    redirect_to employee_custody_orders_path
   end
 
   private
@@ -37,17 +42,18 @@ class EmployeeCustodyOrdersController < ApplicationController
 
     def set_custody_order
       @custody_order = CustodyOrder.find params[:id]
+    end
+
+    def set_processed_sample
       @processed_sample = @custody_order.processed_sample
+    end
+
+    def set_preliminary_order
       @preliminary_order = @processed_sample.preliminary_order
-      @service = @custody_order.service
     end
 
     def set_custody_table
-      @rows = @preliminary_order.quantity
-      sample_id = @preliminary_order.sample_category_id
-      method_id = @preliminary_order.sample_method_id
-      cross_table = SamplesCategoryMethod.where(sample_category_id: sample_id).where(sample_method_id: method_id).first
-      @features = Feature.where(samples_category_method_id: cross_table.id)
-      @cols = @features.pluck(:description)
+      @rows = @preliminary_order.number_of_samples
+      @cols = @preliminary_order.number_of_features
     end
 end

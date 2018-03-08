@@ -2,16 +2,16 @@
   <thead>
     <tr>
       <th>Nr Muestra</th>
-      <% features.length.times do |index| %>
-        <th><%= features[index] %></th>
+      <% cols.length.times do |index| %>
+        <th><%= cols[index] %></th>
       <% end %>
     </tr>
   </thead>
   <tbody>
-    <% samples.to_i.times do |sample| %>
+    <% rows.to_i.times do |sample| %>
       <tr>
         <td><%= sample + 1 %></td>
-        <% features.length.times do |feature| %>
+        <% cols.length.times do |feature| %>
           <td>
             <div>
               <input 

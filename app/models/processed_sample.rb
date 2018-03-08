@@ -10,7 +10,7 @@ class ProcessedSample < ApplicationRecord
     processed_sample.save
   end
 
-  def update_params params, preliminary_order
+  def update_order params, preliminary_order
     self.description = params[:description]
     self.pucp_code = params[:pucp_code]
     self.client_code = preliminary_order.name

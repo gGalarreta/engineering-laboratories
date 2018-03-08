@@ -99,11 +99,7 @@ class Service < ApplicationRecord
 
   def assign_worker_to_job params, current_user
     create_custory_orders_from_preliminary_order params, current_user
-    p "**********************"
-    ap self
     set_next_step current_user
-    p "**********************"
-    ap self
   end
 
 end

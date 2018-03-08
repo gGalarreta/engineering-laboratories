@@ -4,12 +4,12 @@
       <button class="tablinks active" onclick="openSection(event, 'information')">Informacion Cliente</button>
       <button class="tablinks" onclick="openSection(event, 'custody')">Cadena de Custodia</button>
     </div>
-    <%= render 'unclassified_orders_to_classified'%>
+    <%= render 'unclassified_orders_to_classified', custody_order: @custody_order, path: employee_custody_order_path, service: @custody_order.service, sample: @preliminary_order, rows: @rows, cols: @cols %>
   <% else %>
   <div class="tab">
     <button class="tablinks active" onclick="openSection(event, 'information')">Informacion Cliente</button>
       <button class="tablinks" onclick="openSection(event, 'custody')">Revisión de Custodia</button>
     </div>
-    <%= render 'classified_orders_to_reclassify'%>
+    <%#= render 'classified_orders_to_reclassify'%>
   <% end %>
 </div>

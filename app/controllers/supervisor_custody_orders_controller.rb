@@ -1,9 +1,12 @@
 class SupervisorCustodyOrdersController < ApplicationController
 
-  before_action :set_custody_order, only: [:custody_check,:custody_check_update]
+  before_action :set_custody_order, only: [:edit, :update, :custody_check, :custody_check_update]
+  before_action :set_service_belongs_to_custody_order, only: [:custody_check, :custody_check_update]
+  before_action :set_processed_sample, only: [:edit, :update, :custody_check, :custody_check_update]
+  before_action :set_preliminary_order, only: [:edit, :update, :custody_check, :custody_check_update]  
+  before_action :set_service, only: [:edit, :update]
+  before_action :set_employees, only: [:edit, :update, :custody_check, :custody_check_update]
   before_action :set_custody_table, only: [:custody_check]
-  before_action :set_service, only: [:edit,:update]
-  before_action :set_employees, only: [:edit, :update]
 
   def index
     @services_unclassified = Service.unclassified_services current_user
@@ -13,8 +16,6 @@ class SupervisorCustodyOrdersController < ApplicationController
   def edit
   end
 
-  def custody_check
-  end
 
   def update
     @service.assign_worker_to_job params, current_user
@@ -23,6 +24,9 @@ class SupervisorCustodyOrdersController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def custody_check
   end
 
   def custody_check_update
@@ -52,23 +56,27 @@ class SupervisorCustodyOrdersController < ApplicationController
 
     def set_service
       @service = Service.find params[:id]
-      @custody_orders = CustodyOrder.where(service_id: params[:id])
     end
 
     def set_custody_order
       @custody_order = CustodyOrder.find params[:id]
+    end
+
+    def set_service_belongs_to_custody_order
+      @service_belongs_to_custody_order = @custody_order.service
+    end
+
+    def set_processed_sample
       @processed_sample = @custody_order.processed_sample
+    end
+
+    def set_preliminary_order
       @preliminary_order = @processed_sample.preliminary_order
-      @service = @custody_order.service
     end
 
     def set_custody_table
-      @rows = @preliminary_order.quantity
-      sample_id = @preliminary_order.sample_category_id
-      method_id = @preliminary_order.sample_method_id
-      cross_table = SamplesCategoryMethod.where(sample_category_id: sample_id).where(sample_method_id: method_id).first
-      @features = Feature.where(samples_category_method_id: cross_table.id)
-      @cols = @features.pluck(:description)
+      @rows = @preliminary_order.number_of_samples
+      @cols = @preliminary_order.number_of_features      
     end
 
     def set_employees

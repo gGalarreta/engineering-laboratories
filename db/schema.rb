@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(version: 20180308215710) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "client_quotation_observation"
-    t.boolean "engagement"
+    t.boolean "engagement", default: false
     t.index ["client_id"], name: "index_services_on_client_id"
     t.index ["employee_id"], name: "index_services_on_employee_id"
     t.index ["laboratory_id"], name: "index_services_on_laboratory_id"

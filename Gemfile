@@ -61,6 +61,17 @@ gem 'bootstrap', '~> 4.0.0.alpha6'
 #Integrate Chart.js into Rails Asset Pipeline
 gem 'chartjs-ror'
 
+#Generating documents
+gem 'prawn'
+gem 'prawn-table'
+
+#gem 'prawn/table'
+gem 'barby'
+
+#This gem provides a simple and extremely flexible way to upload files from Ruby applications.
+#gem 'carrierwave', '~> 1.0'
+#gem 'carrierwave-postgresql'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

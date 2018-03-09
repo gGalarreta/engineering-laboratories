@@ -6,10 +6,10 @@
     <div class="tab">
       <button class="tablinks active" onclick="openSection(event, 'informacion-general')">Informacion General</button>
       <button class="tablinks" onclick="openSection(event, 'costeo')">Costeo</button>
-      <% if @service.can_see_this_information(necessary_progress_state = "worked") %>
+      <% if @service.can_see_this_information(necessary_progress_state = "unadjusted") %>
         <button class="tablinks" onclick="openSection(event, 'adjust_cost')">Ajuste de costeo</button>
       <% end %>
-      <% if @service.can_see_this_information(necessary_progress_state = "adjusted") %>
+      <% if @service.can_see_this_information(necessary_progress_state = "ajusted") %>
         <button class="tablinks" onclick="openSection(event, 'terminos-condiciones')">Términos y condiciones</button>
       <% end %>
     </div>
@@ -17,11 +17,13 @@
     <%= form_for @service, url: client_quotation_path, method: :put do |f| %>
       <%= render 'preview_information', service: @service, f: f %>
       <%= render 'funded_samples', service: @service, f: f %>
-      <%#= render 'quotation_accepted', service: @service, f: f %>
-      <%#= render 'quotation_adjusted', service: @service, f: f %>
-      <%#= render 'quotation_worker', service: @service, f: f %>
+      <% if @service.can_see_this_information(necessary_progress_state = "unadjusted") %>
+        <%= render 'quotation_adjusted', service: @service, f: f %>
+      <% end %>
+      <% if @service.can_see_this_information(necessary_progress_state = "ajusted") %>
+        <%= render 'quotation_accepted', service: @service, f: f %>
+      <% end %>
 
-      <%#= render 'show_contract', service: @service, f: f %>
       <div class="sical-form-buttons">
         <div class="text-center">
           <%= link_to "Cancelar", client_quotations_path, class: "btn btn-primary sical-btn-cancel" %>

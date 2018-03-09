@@ -1,0 +1,56 @@
+<div id="terminos-condiciones" class="tabcontent">
+  <div >
+    <h4> Compromiso </h4>
+  </div>
+  <div class="engagement ">
+    <%= render 'engagement' %>
+  </div>
+  <br>
+  <div class="form-group row">
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Validación %>
+    </div>
+    <div class="col-md-9">
+      <label class="radio form-check-label sical-radio-button">
+        <span class="icons">
+          <span class="first-icon fa fa-circle-o"></span>
+          <span class="second-icon fa fa-dot-circle-o"></span>
+        </span>
+        <input
+          id="accepted"
+          type="radio"
+          class="form-check-input"
+          data-toggle="radio"
+          name="service[engagement]"
+          value="true"
+        >
+        Aceptado
+      </label>
+      <label class="radio form-check-label sical-radio-button">
+        <span class="icons">
+          <span class="first-icon fa fa-circle-o"></span>
+          <span class="second-icon fa fa-dot-circle-o"></span>
+        </span>
+        <input
+          id="rejected"
+          type="radio"
+          class="form-check-input"
+          data-toggle="radio"
+          name="service[engagement]"
+          value="false"
+        >
+        No Aceptado
+      </label>
+    </div>
+  </div>
+  <div class=" engagement-observation hide ">
+    <div class="form-group row">
+      <div class="col-md-3">
+        <%= f.label :observaciones %> 
+      </div>
+      <div class="col-md-9">
+        <%= f.text_field :client_quotation_observation, class: "form-control", maxlength:"50" %>
+      </div>
+    </div>
+  </div>
+</div>

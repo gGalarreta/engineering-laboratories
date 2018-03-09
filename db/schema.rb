@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305182724) do
+ActiveRecord::Schema.define(version: 20180308215710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,18 +122,20 @@ ActiveRecord::Schema.define(version: 20180305182724) do
   end
 
   create_table "processed_samples", force: :cascade do |t|
+    t.text "description"
+    t.text "classified_values"
+    t.float "discount"
+    t.float "subtotal_cost"
     t.string "pucp_code"
     t.string "client_code"
-    t.text "description"
     t.bigint "preliminary_order_id"
-    t.float "subtotal_cost"
-    t.float "discount"
     t.bigint "custody_order_id"
-    t.text "classified_values"
+    t.bigint "service_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["custody_order_id"], name: "index_processed_samples_on_custody_order_id"
     t.index ["preliminary_order_id"], name: "index_processed_samples_on_preliminary_order_id"
+    t.index ["service_id"], name: "index_processed_samples_on_service_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -190,6 +192,8 @@ ActiveRecord::Schema.define(version: 20180305182724) do
     t.bigint "laboratory_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "client_quotation_observation"
+    t.boolean "engagement", default: false
     t.index ["client_id"], name: "index_services_on_client_id"
     t.index ["employee_id"], name: "index_services_on_employee_id"
     t.index ["laboratory_id"], name: "index_services_on_laboratory_id"

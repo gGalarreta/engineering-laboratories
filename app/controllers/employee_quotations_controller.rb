@@ -3,11 +3,12 @@ class EmployeeQuotationsController < ApplicationController
   before_action :set_service, only: [:edit, :update]
   before_action :sample_categories, only: [:edit, :update]
   before_action :sample_methods, only: [:edit, :update]
+  before_action :set_employees, only: [:edit, :update]
 
   def index
     @unfunded_services = Service.unfunded_services current_user
-    @unadjusted_services = Service.worked_services current_user
-    @contract_bound_services = Service.contract_bound_services current_user
+    @unadjusted_services = Service.unadjusted_services current_user
+    @accepted_services = Service.accepted_services current_user
     @pending_services = Service.pending_services current_user
   end
 
@@ -59,5 +60,9 @@ class EmployeeQuotationsController < ApplicationController
 
     def sample_methods
       @sample_methods = SampleMethod.belongs_work_environment(current_user).only_actives
+    end
+
+    def set_employees
+      @employees = User.valid_workers_to_assign_job current_user
     end
 end

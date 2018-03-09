@@ -26,4 +26,8 @@ class SystemParameter < ApplicationRecord
       where(laboratory_id: current_user.laboratory).name_app.first.description
     end
   end
+
+  def self.get_terms_and_condition_in_our_environment service
+    where(laboratory_id: service.laboratory).terms_and_condition.first.description
+  end
 end

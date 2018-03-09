@@ -3,7 +3,7 @@ class ClientQuotationsController < ApplicationController
   before_action :set_service, only: [:edit, :update]
   before_action :sample_categories, only: [:edit, :update]
   before_action :sample_methods, only: [:edit, :update]
-
+  before_action :set_terms_and_condition, only: [:edit, :update]
 
   def index
     @funded_services = Service.funded_services current_user
@@ -21,13 +21,12 @@ class ClientQuotationsController < ApplicationController
     else
       render :edit
     end
-
   end
 
   private
 
     def quotation_params
-      params.require(:service).permit(:funded_validation, costing_comments_attributes: costing_comments_params)
+      params.require(:service).permit(:funded_validation, :engagement, costing_comments_attributes: costing_comments_params)
     end
 
     def costing_comments_params
@@ -46,4 +45,7 @@ class ClientQuotationsController < ApplicationController
       @sample_methods = SampleMethod.belongs_work_environment(current_user).only_actives
     end
   
+    def set_terms_and_condition
+      @terms_and_condition = SystemParameter.get_terms_and_condition_in_our_environment @service
+    end
 end

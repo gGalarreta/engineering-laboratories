@@ -40,6 +40,12 @@ class EmployeeQuotationsController < ApplicationController
     end
   end  
 
+  def contract_pdf
+    service = Service.find params[:service_id]
+    pdf = service.generate_contract_doc
+        send_data pdf.render, filename: "ContratoServ-#{service.id}.pdf", type: "application/pdf"
+  end
+
   private
 
     def quotation_params

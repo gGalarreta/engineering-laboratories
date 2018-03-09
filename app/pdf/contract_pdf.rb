@@ -40,7 +40,7 @@ class ContractPdf < Prawn::Document
   def service_info
     text "Referencia: Solicitud de Servicio Nro. #{@service.id}", :size => 11, :align => :right
     move_down 30
-    #text "Mediante este documento se hace efectiva la aceptación del servicio de <b>#{@service.subject}</b> solicitada por el cliente <b>#{@service.client.name}</b> con RUC/DNI <b>#{@service.client.ruc}</b> al <b>#{@service.laboratory.name}</b> por el monto de <b>#{@service.total} Nuevos Soles</b> . El detalle del servicio se muestra a continuación:</b>", :align => :justify, :inline_format => true
+    text "Mediante este documento se hace efectiva la aceptación del servicio de <b>#{@service.subject}</b> solicitada por el cliente <b>#{@service.client.full_name}</b> con RUC/DNI <b>#{@service.client.ruc}</b> al <b>#{@service.laboratory.name}</b> por el monto de <b>#{@service.total} Nuevos Soles</b> . El detalle del servicio se muestra a continuación:</b>", :align => :justify, :inline_format => true
     move_down 20
 
   end
@@ -48,9 +48,9 @@ class ContractPdf < Prawn::Document
   def service_description
     data=[[ "Descripción de Muestra", "Categoría de Muestra", "Método de Ensayo", "Acreditado"]]
     begin
-      #@service.sample_preliminaries.each { |x| 
-      #  data+=[["#{x.description}", "#{SampleCategory.find(x.sample_category_id).name}","#{SampleMethod.find(x.sample_method_id).name}", "#{acreditted(SampleMethod.find(x.sample_method_id).accredited?)}"]] 
-      #}
+      @service.preliminary_orders.each { |x| 
+        data+=[["#{x.description}", "#{SampleCategory.find(x.sample_category_id).name}","#{SampleMethod.find(x.sample_method_id).name}", "#{acreditted(SampleMethod.find(x.sample_method_id).accredited?)}"]] 
+      }
     rescue 
       puts 'Error in setting attributes of sample in table'
     end 
@@ -69,14 +69,10 @@ class ContractPdf < Prawn::Document
     end
     move_down(5)
     @cursor_firs_set=cursor
-    #bounding_box [bounds.right-180, @cursor_firs_set], :width  => 180 do
-    #  text "Responsable #{@service.laboratory.name}", :align => :center, :size => 11
-    #  text "#{@service.laboratory.users.find_by_role_id(Role.find_by_name("Jefe de Laboratorio").id).name}", :align => :center, :size => 11
-    #end
-    #bounding_box [bounds.left, @cursor_firs_set], :width  => 180 do
-    #  text "Responsable #{@service.client.name}", :align => :center, :size => 11
-    #  text "#{@service.client.contact_person}", :align => :center, :size => 11
-    #end
+    bounding_box [bounds.left, @cursor_firs_set], :width  => 180 do
+      text "Responsable #{@service.client.full_name}", :align => :center, :size => 11
+      text "#{@service.client.contact_person}", :align => :center, :size => 11
+    end
   end
 
   def footer

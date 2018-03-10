@@ -1,7 +1,7 @@
-<%= form_for @processed_sample, url: employee_custody_order_path, :wrapper => false,  method: :put do |f| %>
+<%= form_for custody_order, url: employee_custody_order_path, :wrapper => false,  method: :put do |f| %>
   <div id="information" class="tabcontent " style="display: block;">
     <h3>Información</h3>
-    <%= render 'show_basic_information', sample: sample, service: service, f: f %>
+    <%= render 'show_basic_information', sample: sample, service: service%>
   </div>
 
   <div id="custody" class="tabcontent">
@@ -9,10 +9,17 @@
       <div class="form-group row">
         <div class="col-md-8"><h3>Revisión</h3></div>
         <div class="col-md-3"><h3>Nro. Revisión :</h3></div>
-        <div class="col-md-1"><h3><%= @custody_order.revision_number %></h3></div> 
+        <div class="col-md-1"><h3><%= custody_order.revision_number %></h3></div> 
       </div> 
     </div>
-    <%= render 'report_employee', processed_sample: @processed_sample, f: f %>
+    <%= f.fields_for :processed_sample do |sample| %>
+      <%= render 'report_employee', processed_sample: custody_order.processed_sample, f: sample %>
+    <% end %>
+    <%= render 'filling_up_sample_features_edit',processed_sample: custody_order.processed_sample%>
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Comentarios %>
+    </div>
+    <%= render 'aplication/add_nested_elements', title: "", button_message: "Agregar comentarios", editable: true, f: f, 'association_insert_node': '.samples-information', fields: :revision_comments, partial: 'revision_comment_fields' %>
     <div class="form-group">
       <div class="text-center save-worker">
       <%= link_to "Cancelar", employee_custody_orders_path, class: "btn btn-primary sical-btn-cancel" %>

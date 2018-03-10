@@ -12,17 +12,11 @@ class ProcessedSample < ApplicationRecord
     processed_sample.save
   end
 
-  def update_order params, preliminary_order, custody_order
+  def update_order params, custody_order
     if (custody_order.revision_number > 0)
-      self.pucp_code = params[:processed_sample][:pucp_code]
-      self.classified_values = params["sp_value"]
       custody_order.reset_validation
-    else
-      self.description = params[:description]
-      self.pucp_code = params[:pucp_code]
-      self.client_code = preliminary_order.name
-      self.classified_values = params["sp_value"]
     end
+    self.classified_values = params["classified_values"]
     save
   end
 end

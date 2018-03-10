@@ -13,7 +13,7 @@
         <td><%= sample.pucp_code + (index1 + 1).to_s %></td>
         <% @cols.length.times do |index2| %>
           <td>
-            <div class="form-control">
+            <div>
               <%= eval(sample.classified_values)[index1.to_s+"-"+index2.to_s] %>
             </div>
           </td>

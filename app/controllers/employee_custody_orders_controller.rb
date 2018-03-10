@@ -14,7 +14,8 @@ class EmployeeCustodyOrdersController < ApplicationController
   end
 
   def update
-    @processed_sample.update_order params, @preliminary_order, @custody_order
+    @custody_order.assign_attributes custody_order_params
+    @processed_sample.update_order params, @custody_order
     if @custody_order.update_order current_user
       redirect_to employee_custody_orders_path
     else
@@ -25,11 +26,15 @@ class EmployeeCustodyOrdersController < ApplicationController
   private
 
     def custody_order_params
-      params.require(:custody_order).permit(:supervisor_id,:employee_id,:revision_number,:supervisor_observation,:supervised_validation,processed_sample_attributes: processed_sample_params)
+      params.require(:custody_order).permit(processed_sample_attributes: processed_sample_params, revision_comments_attributes: revision_comments_params)
     end
 
     def processed_sample_params
       [:id, :client_code, :pucp_code, :description]
+    end
+
+    def revision_comments_params
+      [:id, :description, :_destroy]
     end
 
     def set_custody_order

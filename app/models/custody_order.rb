@@ -4,12 +4,16 @@ class CustodyOrder < ApplicationRecord
   belongs_to :supervisor , required: false, class_name: "User"
   belongs_to :service , required: false
 
-  has_one :processed_sample
+  has_many :revision_comments, dependent: :destroy
+  has_one :processed_sample, dependent: :destroy
 
   scope :belongs_to_service, -> (service) {where(service_id: service.id)}
   scope :custody_orders_to_check, -> (current_user) {where(supervisor_id: current_user).to_check}
   scope :custody_orders_to_classified, -> (current_user) {(where(employee_id: current_user).to_classified).where(revision_number: 0)}
   scope :custody_orders_to_reclassify, -> (current_user) {(where(employee_id: current_user).to_classified).where(supervised_validation: false)}
+
+  accepts_nested_attributes_for :processed_sample, allow_destroy: true
+  accepts_nested_attributes_for :revision_comments, allow_destroy: true
 
   enum custody_progress: [:to_classified, :to_check, :completed]
 

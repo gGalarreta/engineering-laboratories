@@ -14,7 +14,7 @@
         <% @cols.length.times do |index2| %>
           <td>
             <div class="form-control">
-              <%= number_field_tag "sp_value["+(index1.to_s+"-"+index2.to_s)+"]",  eval(processed_sample.classified_values)[index1.to_s+"-"+index2.to_s], step: 0.01 %>
+              <%= number_field_tag "classified_values["+(index1.to_s+"-"+index2.to_s)+"]",  eval(processed_sample.classified_values)[index1.to_s+"-"+index2.to_s], step: 0.01 %>
             </div>
           </td>
         <% end %>

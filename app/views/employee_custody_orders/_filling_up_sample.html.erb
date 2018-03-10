@@ -1,6 +1,8 @@
 <div>
   <h3>Información de Clasificación</h3>
-  <%=  render 'sample_feature_form', sample: sample %>
+  <%= f.fields_for :processed_sample do |processed_sample| %>
+    <%=  render 'sample_feature_form', f: processed_sample %>
+  <% end %>
 </div>
 <div>
   <h3>Valores de Custodia </h3>

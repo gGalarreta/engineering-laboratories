@@ -42,15 +42,11 @@ class SupervisorCustodyOrdersController < ApplicationController
   private
 
     def custody_order_supervision_params
-      params.require(:custody_order).permit(:supervised_validation)
+      params.require(:custody_order).permit(:supervised_validation, revision_comments_attributes: revision_comments_params)
     end
 
-    def custody_order_params
-      params.require(:custody_order).permit(:revision_number,:supervisor_observation,:supervised_validation, processed_sample_attributes: processed_samples_params)
-    end
-
-    def processed_samples_params
-      [:id, :sample_category_id, :description, :pucp_code, :client_code]
+    def revision_comments_params
+      [:id, :description, :_destroy]
     end
 
     def set_service

@@ -24,7 +24,7 @@ class Service < ApplicationRecord
   accepts_nested_attributes_for :costing_comments, allow_destroy: true
   #accepts_nested_attributes_for :processed_samples, reject_if: :all_blank, allow_destroy: true
 
-  enum progress: [:created, :initial_costed, :accepted, :unadjusted, :ajusted, :engaged, :with_assigned_worker, :classified, :worked, :adjusted, :with_contract, :completed]
+  enum progress: [:created, :initial_costed, :accepted, :unclassified, :unadjusted, :ajusted, :engaged, :with_assigned_worker, :worked, :adjusted, :with_contract, :completed]
 
   
   def attended_message
@@ -92,9 +92,9 @@ class Service < ApplicationRecord
     set_next_step current_user
   end
 
-  def update_progress_if_finish
+  def update_progress_if_finish current_user
     if CustodyOrder.belongs_to_service(self).where.not(custody_progress: "completed").empty?
-      set_next_step
+      set_next_step current_user
       save
     end
   end

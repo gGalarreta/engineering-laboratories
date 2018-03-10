@@ -43,11 +43,15 @@
         </label>
       </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="text-center save-worker">
-      <%= link_to "Cancelar", supervisor_custody_orders_path, class: "btn btn-primary sical-btn-cancel" %>
-      <%= f.submit "Asignar", class: "btn btn-primary", data: {disable_with: 'Please Wait...'}  %>
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Comentarios %>
+    </div>
+    <%= render 'aplication/add_nested_elements', title: "", button_message: "Agregar comentarios", editable: true, f: f, 'association_insert_node': '.samples-information', fields: :revision_comments, partial: 'revision_comment_fields' %>
+    <div class="form-group">
+      <div class="text-center save-worker">
+        <%= link_to "Cancelar", supervisor_custody_orders_path, class: "btn btn-primary sical-btn-cancel" %>
+        <%= f.submit "Asignar", class: "btn btn-primary", data: {disable_with: 'Please Wait...'}  %>
+      </div>
     </div>
   </div>
 <% end %>

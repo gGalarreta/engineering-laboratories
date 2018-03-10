@@ -1,17 +1,20 @@
-<%= form_for custody_order, url: path, :wrapper => false,  method: :put do |f| %>
+<%= form_for custody_order, url: employee_custody_order_path, :wrapper => false,  method: :put do |f| %>
   <div id="information" class="tabcontent" style="display: block;">
     <h3>Información</h3>
       <%= render 'show_basic_information', service: service, sample: sample, f: f %>
   </div>
 
   <div id="custody" class="tabcontent">
-    <%= render 'filling_up_sample', sample: sample, rows: rows, cols: cols %>
-  </div>
-
-  <div class="form-group">
-    <div class="text-center save-worker">
-      <%= link_to "Cancelar", employee_custody_orders_path, class: "btn btn-primary sical-btn-cancel" %>
-      <%= f.submit "Guardar", class: "btn btn-primary", data: {disable_with: 'Please Wait...'}  %>
+    <%= render 'filling_up_sample', rows: rows, cols: cols, f: f %>
+    <div class="col-md-3 col-fom-label">
+      <%= f.label :Comentarios %>
+    </div>
+    <%= render 'aplication/add_nested_elements', title: "", button_message: "Agregar comentarios", editable: true, f: f, 'association_insert_node': '.samples-information', fields: :revision_comments, partial: 'revision_comment_fields' %>
+    <div class="form-group">
+      <div class="text-center save-worker">
+        <%= link_to "Cancelar", employee_custody_orders_path, class: "btn btn-primary sical-btn-cancel" %>
+        <%= f.submit "Guardar", class: "btn btn-primary", data: {disable_with: 'Please Wait...'}  %>
+      </div>
     </div>
   </div>
 <% end %>

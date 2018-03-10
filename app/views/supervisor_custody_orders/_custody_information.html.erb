@@ -14,8 +14,4 @@
   </tr>
   </tbody>
 </table>
-<%= render 'filling_up_processed_samples_features' %>
-<div class="text-center">
-  <h4>Observaciones</h4>
-  <%= f.text_area :supervisor_observation, class: "form-control sical-text-area custody-chek-text-area", cols: "40", rows: "5" %>
-</div>
+<%= render 'filling_up_processed_samples_features' , sample: sample %>

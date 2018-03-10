@@ -8,13 +8,13 @@
     </tr>
   </thead>
   <tbody>
-    <% @processed_sample.preliminary_order.quantity.to_i.times do |index1| %>
+    <% sample.preliminary_order.quantity.to_i.times do |index1| %>
       <tr>
-        <td><%= @processed_sample.pucp_code + (index1 + 1).to_s %></td>
+        <td><%= sample.pucp_code + (index1 + 1).to_s %></td>
         <% @cols.length.times do |index2| %>
           <td>
-            <div class="form-control">
-              <%= eval(@processed_sample.classified_values)[index1.to_s+"-"+index2.to_s] %>
+            <div>
+              <%= eval(sample.classified_values)[index1.to_s+"-"+index2.to_s] %>
             </div>
           </td>
         <% end %>

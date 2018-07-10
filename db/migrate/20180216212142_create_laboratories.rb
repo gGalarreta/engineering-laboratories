@@ -6,7 +6,14 @@ class CreateLaboratories < ActiveRecord::Migration[5.1]
       t.string :address
       t.string :phone
       t.string :description
+      t.string :area
+      t.string :location
+      t.string :web
+      t.date   :creation_date
       t.boolean :active, default: true
+
+      t.belongs_to :sections      
+      
       t.timestamps
     end
   end
